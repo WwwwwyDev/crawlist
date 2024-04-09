@@ -1,6 +1,6 @@
 from typing import Generator, Any
 
-from analyzer_util import *
+from crawlist.utils import *
 from analyzer import *
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver

@@ -1,7 +1,7 @@
 from typing import Generator, Any
 
 from analyzer import *
-from analyzer_util import *
+from crawlist.utils import *
 
 
 class NormalAnalyzer(Analyzer):
