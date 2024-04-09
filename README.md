@@ -1,2 +1,2 @@
-# crawl-page-analyser-for-list
+# crawlist
 A universal solution for web crawling lists

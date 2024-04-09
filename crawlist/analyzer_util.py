@@ -1,8 +1,8 @@
 import re
 import random
 import time
-import requests as req
-from bs4 import BeautifulSoup as BS
+# import requests as req
+# from bs4 import BeautifulSoup as BS
 import parsel
 from datetime import datetime
 
@@ -12,38 +12,38 @@ class AnalyzerUtil:
     网页分析工具类
     """
 
-    @staticmethod
-    def get_html(url: str) -> str:
-        try:
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) "
-                              "Chrome/70.0.3538.77 Safari/537.36"
-            }
-            proxies = {
-                'http': "",
-                'https': ""
-            }
-            r = req.get(url, headers=headers, proxies=proxies)
-            r.raise_for_status()
-            r.encoding = r.apparent_encoding
-            return r.text
-        except Exception:
-            return ""
+    # @staticmethod
+    # def get_html(url: str) -> str:
+    #     try:
+    #         headers = {
+    #             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) "
+    #                           "Chrome/70.0.3538.77 Safari/537.36"
+    #         }
+    #         proxies = {
+    #             'http': "",
+    #             'https': ""
+    #         }
+    #         r = req.get(url, headers=headers, proxies=proxies)
+    #         r.raise_for_status()
+    #         r.encoding = r.apparent_encoding
+    #         return r.text
+    #     except Exception:
+    #         return ""
 
-    @staticmethod
-    def get_website_latency(url):
-        try:
-            start_time = time.time()  # 请求发送前的时间
-            response = req.get(url)
-            end_time = time.time()  # 请求返回后的时间
+    # @staticmethod
+    # def get_website_latency(url):
+    #     try:
+    #         start_time = time.time()  # 请求发送前的时间
+    #         response = req.get(url)
+    #         end_time = time.time()  # 请求返回后的时间
 
-            # 计算网络延迟
-            latency = end_time - start_time
-            # print(f"网络延迟：{latency * 1000} 毫秒")
+    #         # 计算网络延迟
+    #         latency = end_time - start_time
+    #         # print(f"网络延迟：{latency * 1000} 毫秒")
 
-            return latency, response.status_code
-        except req.exceptions.RequestException as e:
-            return 0.8, 500
+    #         return latency, response.status_code
+    #     except req.exceptions.RequestException as e:
+    #         return 0.8, 500
 
     # 选择html元素
     selector_rules = {"xpath", "css", "regExp", "jsPath"}
@@ -437,16 +437,16 @@ class AnalyzerUtil:
         l = selector.xpath(".//text()").getall()
         return " ".join(l)
 
-    @staticmethod
-    def get_attribute(html: str, attr: str):
-        # 获取节点中的属性内容
-        if not html:
-            return ""
-        soup = BS(html, 'html.parser').select_one("*")
-        res = soup.get(attr)
-        if isinstance(res, list):
-            return res[0]
-        return res
+    # @staticmethod
+    # def get_attribute(html: str, attr: str):
+    #     # 获取节点中的属性内容
+    #     if not html:
+    #         return ""
+    #     soup = BS(html, 'html.parser').select_one("*")
+    #     res = soup.get(attr)
+    #     if isinstance(res, list):
+    #         return res[0]
+    #     return res
 
     @staticmethod
     def fix_relative_url(baseurl: str, relative: str) -> str:
