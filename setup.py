@@ -22,8 +22,7 @@ VERSION = '0.0.1'
 
 # What packages are required for this module to be executed?
 REQUIRED = [
-    # 'requests', 'maya', 'records',
-    'parsel', 'selenium'
+    'parsel', 'selenium', 'cssselect', 'lxml', 'requests'
 ]
 
 # What packages are optional?
