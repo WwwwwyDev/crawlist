@@ -2,7 +2,7 @@ import random
 import time
 from typing import Any, Generator
 from .selector import Selector
-from .pagination import Pagination
+from .pager import Pager
 
 
 class BaseAnalyzer(object):
@@ -44,7 +44,7 @@ class Analyzer(BaseAnalyzer):
     分析器
     """
 
-    def __init__(self, pagination: Pagination, selector: Selector, interval: float = 0.1) -> None:
+    def __init__(self, pagination: Pager, selector: Selector, interval: float = 0.1) -> None:
         """
         分析器
         :param pagination: 分页器(Pagination对象)
@@ -52,13 +52,16 @@ class Analyzer(BaseAnalyzer):
         :param interval: 抓取list频率，可使用self.sleep()方法控制频率
         """
         super().__init__(interval)
-        self.pagination: Pagination = pagination
+        self.pagination: Pager = pagination
         self.selector: Selector = selector
 
     def crawl(self, limit: int) -> Generator[Any, str, None]:
         try:
             res_set = set()
-            res: list[str] = self.selector(self.pagination.html)
+            html = self.pagination.html
+            if not html:
+                return
+            res: list[str] = self.selector(html)
             cnt = 0
             while cnt < len(res) and limit:  # 生成数据
                 element = res[cnt]
@@ -71,7 +74,10 @@ class Analyzer(BaseAnalyzer):
             while len(res) > 0:
                 self.sleep()
                 self.pagination.next()
-                res = self.selector(self.pagination.html)
+                html = self.pagination.html
+                if not html:
+                    return
+                res = self.selector(html)
                 flag = False
                 cnt = 0
                 while cnt < len(res) and limit:  # 生成数据
@@ -96,5 +102,27 @@ class AnalyzerPrettify(Analyzer):
     """
     Prettify html
     """
+
+    filter_list = ["\n", "\r", "\t", "<br>", "<br/>", "</br>"]
+
     def after(self, html: str) -> str:
-        return html.replace("\n", '').replace("\r", '').replace("\t", '').replace("<br>", '').replace(" ", '')
+        # 去除html中无用信息
+        result_list = []
+        i = 0
+        while i < len(html):
+            flag = True
+            for e in AnalyzerPrettify.filter_list:
+                if html[i:i + len(e)] == e:
+                    i += len(e)
+                    flag = False
+            flag2 = True
+            while i < len(html) and html[i] == " ":
+                flag2 = False
+                i += 1
+            if not flag2:
+                i -= 1
+            if flag:
+                result_list.append(html[i])
+                i += 1
+        result = "".join(result_list)
+        return result

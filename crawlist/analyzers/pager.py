@@ -1,4 +1,8 @@
-class Pagination(object):
+class BasePager(object):
+    pass
+
+
+class Pager(BasePager):
 
     def next(self) -> None:
         """
@@ -14,3 +18,6 @@ class Pagination(object):
         :return:
         """
         raise NotImplementedError
+
+    def __call__(self):
+        self.next()

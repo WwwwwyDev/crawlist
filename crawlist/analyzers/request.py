@@ -2,28 +2,31 @@ from requests import HTTPError
 import requests
 
 
-class RequestBase(object):
-    def request(self, uri) -> str:
-        raise NotImplementedError
-
-    def __call__(self, uri) -> str:
-        return self.request(uri)
+class BaseRequest(object):
+    pass
 
 
-class Request(RequestBase):
+class Request(BaseRequest):
     """
     http请求对象，如果需要重写，请继承Request对象
     """
-    def request(self, uri) -> str:
+    def __init__(self, headers=None, proxies=None):
+        if proxies is None:
+            proxies = {}
+        if headers is None:
+            headers = {}
+        self.headers = headers
+        self.proxies = proxies
+
+    def request(self, uri: str) -> str:
         try:
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) "
-                              "Chrome/70.0.3538.77 Safari/537.36"
-            }
-            r = requests.get(uri, headers=headers)
+            r = requests.get(uri, headers=self.headers, proxies=self.proxies)
             r.raise_for_status()
             r.encoding = r.apparent_encoding
             return r.text
         except HTTPError:
             return ""
+
+    def __call__(self, uri) -> str:
+        return self.request(uri)
 

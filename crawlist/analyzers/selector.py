@@ -2,22 +2,23 @@ import parsel
 from .valid import Valid
 
 
-class SelectorBase(object):
-
-    def select(self, html: str) -> list[str]:
-        raise NotImplementedError
-
-    def __call__(self, html: str) -> list[str]:
-        return self.select(html)
+class BaseSelector(object):
+    pass
 
 
-class Selector(SelectorBase):
+class Selector(BaseSelector):
     def __init__(self, pattern: str) -> None:
         assert self.valid(pattern)
         self.pattern = pattern
 
+    def select(self, html: str) -> list[str]:
+        raise NotImplementedError
+
     def valid(self, pattern) -> bool:
         raise NotImplementedError
+
+    def __call__(self, html: str) -> list[str]:
+        return self.select(html)
 
 
 class CssSelector(Selector):
