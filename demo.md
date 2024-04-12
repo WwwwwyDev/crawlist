@@ -47,6 +47,8 @@ if __name__ == '__main__':
     print(len(res))
 ```
 
+### **Dynamic**Pager
+
 #### **DynamicPagerRedirect**
 
 ```python
