@@ -48,7 +48,7 @@ if __name__ == '__main__':
     # Initialize a selector to select the list element
     selector = cl.CssSelector(pattern=".doulist-item")
     
-     # Initialize an analyzer to achieve linkage between pagers and selectors
+    # Initialize an analyzer to achieve linkage between pagers and selectors
     analyzer = cl.AnalyzerPrettify(pager, selector)
     res = []
     limit = 100
@@ -66,9 +66,15 @@ import crawlist as cl
 if __name__ == '__main__':
     # Initialize a pager to implement page flipping 
     pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international")
+    
+    # Initialize a selector to select the list element
     selector = cl.CssSelector(pattern="#ec > div.content > section > div.whitecon.boxTitle.boxText > ul > li")
+    
+    # Initialize an analyzer to achieve linkage between pagers and selectors
     analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
     res = []
+    
+    # Iterating a certain number of results from the analyzer
     for tr in analyzer(100):
         print(tr)
         res.append(tr)
