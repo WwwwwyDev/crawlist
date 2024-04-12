@@ -84,7 +84,8 @@ if __name__ == '__main__':
     res = []
     
     # Iterating a certain number of results from the analyzer
-    for tr in analyzer(100):
+    limit = 100
+    for tr in analyzer(limit):
         print(tr)
         res.append(tr)
     print(len(res))
