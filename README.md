@@ -1,10 +1,12 @@
-# Page
+---
+description: A universal solution for web crawling lists
+---
+
+# 👾 crawlist
 
 [![crawlist](https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png)](https://github.com/WwwwwyDev/crawlist)
 
-## crawlist
 
-A universal solution for web crawling lists
 
 [![pypi](https://img.shields.io/pypi/v/crawlist) ](https://pypi.python.org/pypi/crawlist)![python](https://img.shields.io/badge/python-3.6.0+-blue) [![GitHub stars](https://img.shields.io/github/stars/WwwwwyDev/crawlist)](https://github.com/WwwwwyDev/crawlist/stargazers)\
 
@@ -73,8 +75,3 @@ if __name__ == '__main__':
     pager.webdriver.quit()
 
 ```
-
-### Documenting
-
-If you are interested and would like to see more detailed documentation, please click on the picture below.\
-[![crawlist](https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png)](https://wwydev.gitbook.io/crawlist/)
