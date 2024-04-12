@@ -58,7 +58,7 @@ class Analyzer(BaseAnalyzer):
                     yield element
                 cnt += 1
             try_cnt = 3
-            while len(res) > 0:
+            while len(res) > 0 and limit:
                 self.pager.next()
                 html = self.pager.html
                 if not html:

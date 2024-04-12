@@ -42,6 +42,9 @@ class DynamicPager(Pager):
             except Exception:
                 pass
 
+    def pre_load(self, webdriver: WebDriver = None) -> bool:
+        return False
+
     def __del__(self):
         try:
             self.webdriver.quit()
@@ -49,7 +52,7 @@ class DynamicPager(Pager):
             pass
 
 
-class DynamicPagerRedirect(DynamicPager):
+class DynamicRedirectPager(DynamicPager):
     def __init__(self, uri: str, uri_split: str, webdriver: WebDriver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
@@ -65,6 +68,7 @@ class DynamicPagerRedirect(DynamicPager):
         assert Valid.is_valid_url(uri) and Valid.is_valid_url(uri_split.replace('%v', str(start)))
         assert offset >= 1 and start >= 0
         super().__init__(webdriver=webdriver, interval=interval)
+        self.pre_load(webdriver)
         self.index = start
         self.offset = offset
         self.current_uri = uri
@@ -81,7 +85,7 @@ class DynamicPagerRedirect(DynamicPager):
         return self.webdriver.page_source
 
 
-class DynamicPagerListRedirect(DynamicPager):
+class DynamicListRedirectPager(DynamicPager):
     def __init__(self, uris: list, webdriver: WebDriver = None, interval: float = 0.1) -> None:
         """
         基于动态网页分析器(重定向翻页)
@@ -94,6 +98,7 @@ class DynamicPagerListRedirect(DynamicPager):
             assert Valid.is_valid_url(uri)
         assert len(uris) > 0
         super().__init__(webdriver=webdriver, interval=interval)
+        self.pre_load(webdriver)
         self.index = 0
         self.uris = uris
 
@@ -112,7 +117,7 @@ class DynamicPagerListRedirect(DynamicPager):
         return self.webdriver.page_source
 
 
-class DynamicPagerScroll(DynamicPager):
+class DynamicScrollPager(DynamicPager):
     def __init__(self, uri: str, webdriver: WebDriver = None, interval: float = 1) -> None:
         """
         基于动态网页分析器(滚动翻页)
@@ -122,7 +127,8 @@ class DynamicPagerScroll(DynamicPager):
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
-        self.webdriver.get(uri)
+        if not self.pre_load(self.webdriver):
+            self.webdriver.get(uri)
         self.uri = uri
 
     js_code = '''he = setInterval(() => {
@@ -134,7 +140,7 @@ class DynamicPagerScroll(DynamicPager):
                 '''
 
     def next(self) -> None:
-        self.webdriver.execute_script(DynamicPagerScroll.js_code)
+        self.webdriver.execute_script(DynamicScrollPager.js_code)
         self.sleep()
 
     @property
@@ -142,7 +148,7 @@ class DynamicPagerScroll(DynamicPager):
         return self.webdriver.page_source
 
 
-class DynamicPagerLineButton(DynamicPager):
+class DynamicLineButtonPager(DynamicPager):
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None,
                  interval: float = 1) -> None:
         """
@@ -154,7 +160,8 @@ class DynamicPagerLineButton(DynamicPager):
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
-        self.webdriver.get(uri)
+        if not self.pre_load(self.webdriver):
+            self.webdriver.get(uri)
         assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.uri = uri
         self.button = button_selector
@@ -169,12 +176,12 @@ class DynamicPagerLineButton(DynamicPager):
         return self.webdriver.page_source
 
 
-class DynamicPagerNumButton(DynamicPager):
+class DynamicNumButtonPager(DynamicPager):
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         基于动态网页分析器(数字按钮翻页)
-        :param uri: 网页链接，该网页是行按钮翻页
+        :param uri: 网页链接，该网页是数字按钮翻页
         :param button_selector: 数字按钮选择器
         :param webdriver: selenium的WebDriver对象
         :param start: 起始页
@@ -183,21 +190,28 @@ class DynamicPagerNumButton(DynamicPager):
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
-        self.webdriver.get(uri)
+        if not self.pre_load(self.webdriver):
+            self.webdriver.get(uri)
         assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.uri = uri
-        self.index = start
+        self.index = 1
         self.offset = offset
         self.button = button_selector
+        while start - 1:
+            start -= 1
+            self.next_one()
 
     def next(self) -> None:
         offset = self.offset
-        button = None
         while offset:
-            self.index += 1
-            num_button_elements = self.button(self.webdriver, interval=self.interval)
-            button = DynamicPagerNumButton.find_num_button(num_button_elements, num=self.index)
+            self.next_one()
             offset -= 1
+        self.sleep()
+
+    def next_one(self) -> None:
+        self.index += 1
+        num_button_elements = self.button(self.webdriver, interval=self.interval)
+        button = DynamicNumButtonPager.find_num_button(num_button_elements, num=self.index)
         if button:
             self.click_safety(button)
         self.sleep()
@@ -232,6 +246,48 @@ class DynamicPagerNumButton(DynamicPager):
         :return: 选中的按钮，没找到则为None
         """
         for element in elements:
-            if DynamicPagerNumButton.check_num_button(element, num):
+            if DynamicNumButtonPager.check_num_button(element, num):
                 return element
         return None
+
+
+class DynamicNextButtonPager(DynamicPager):
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None, start: int = 1,
+                 offset: int = 1, interval: float = 1) -> None:
+        """
+        基于动态网页分析器(点击下一页按钮翻页)
+        :param uri: 网页链接，该网页是点击下一页按钮翻页
+        :param button_selector: 点击下一页按钮选择器
+        :param webdriver: selenium的WebDriver对象
+        :param start: 起始页
+        :param offset: 分页间隔
+        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        """
+        assert Valid.is_valid_url(uri)
+        super().__init__(webdriver=webdriver, interval=interval)
+        if not self.pre_load(self.webdriver):
+            self.webdriver.get(uri)
+        assert len(button_selector(self.webdriver, interval=interval)) > 0
+        self.uri = uri
+        self.offset = offset
+        self.button = button_selector
+        while start - 1:
+            start -= 1
+            self.next_one()
+
+    def next(self) -> None:
+        offset = self.offset
+        while offset:
+            self.next_one()
+            offset -= 1
+        self.sleep()
+
+    def next_one(self) -> None:
+        button = self.button(self.webdriver, interval=self.interval)[0]
+        if button:
+            self.click_safety(button)
+        self.sleep()
+
+    @property
+    def html(self) -> str:
+        return self.webdriver.page_source

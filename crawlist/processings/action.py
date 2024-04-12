@@ -1,9 +1,12 @@
+import random
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from crawlist.utils import *
+
 
 class Action:
 
@@ -20,7 +23,7 @@ class Action:
         # 尝试点击两次
         try:
             element.click()
-            Util.random_sleep(0.1, 0.2)
+            time.sleep(random.uniform(0.1, 0.2))
         except Exception:
             try:
                 element.click()
@@ -76,8 +79,7 @@ class Action:
         except Exception as e:
             return False
         return True
-    
-    
+
     @staticmethod
     def switchTab(driver: WebDriver, index: int) -> bool:
         """
@@ -103,7 +105,7 @@ class Action:
         :return: 是否成功
         """
         try:
-            url = Util.url_format(url, r"%s", keyword)
+            url = url.replace(r"%s", keyword)
             driver.get(url)
         except Exception:
             return False
@@ -122,6 +124,3 @@ class Action:
         except Exception:
             return False
         return True
-
-
-

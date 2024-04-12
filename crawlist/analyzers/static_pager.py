@@ -19,7 +19,7 @@ class StaticPager(Pager):
         super().__init__(interval=interval)
 
 
-class StaticPagerRedirect(StaticPager):
+class StaticRedirectPager(StaticPager):
     def __init__(self, uri: str, uri_split: str, request: Request = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
@@ -50,7 +50,7 @@ class StaticPagerRedirect(StaticPager):
         return self.request(self.current_uri)
 
 
-class StaticPagerListRedirect(StaticPager):
+class StaticListRedirectPager(StaticPager):
     def __init__(self, uris: list, request: Request = None, interval: float = 0.1) -> None:
         """
         基于静态网页分析器(重定向翻页)
