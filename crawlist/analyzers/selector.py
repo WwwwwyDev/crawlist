@@ -25,7 +25,7 @@ class Selector(BaseSelector):
         raise NotImplementedError
 
     def valid(self, pattern) -> bool:
-        raise NotImplementedError
+        return True
 
     def __call__(self, html: str) -> list[str]:
         return self.select(html)
