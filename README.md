@@ -1,40 +1,28 @@
-<!-- markdownlint-disable MD033 MD041 -->
-<p align="center">
-  <a href="https://github.com/WwwwwyDev/crawlist"><img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="crawlist" style="width:275px; height:190px" ></a>
-</p>
+# Page
 
-<div align="center">
+[![crawlist](https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png)](https://github.com/WwwwwyDev/crawlist)
 
-# crawlist
+## crawlist
 
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable-next-line MD036 -->
 A universal solution for web crawling lists
-<!-- prettier-ignore-end -->
 
-<p align="center">
-  <a href="https://pypi.python.org/pypi/crawlist">
-    <img src="https://img.shields.io/pypi/v/crawlist" alt="pypi">
-  </a>
-  <img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python">
-  <a href="https://github.com/WwwwwyDev/crawlist/stargazers"><img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars"style="max-width: 100%;">
-  </a>
-  <br/>
-</p>
-</div>
+[![pypi](https://img.shields.io/pypi/v/crawlist) ](https://pypi.python.org/pypi/crawlist)![python](https://img.shields.io/badge/python-3.6.0+-blue) [![GitHub stars](https://img.shields.io/github/stars/WwwwwyDev/crawlist)](https://github.com/WwwwwyDev/crawlist/stargazers)\
 
 
-## introduction
+### introduction
 
 You can use Crawlist to crawl websites containing lists, and with some simple configurations, you can obtain all the list data.\
 Of course, in the face of some special websites that cannot be crawled, you can also customize the configuration of that website.
 
-## installing
+### installing
+
 You can use pip or pip3 to install the crawlist\
 `pip install crawlist` or `pip3 install crawlist`
 
-## quickly start
+### quickly start
+
 This is a static website demo. It does not use the JavaScript to load the data.
+
 ```python
 import crawlist as cl
 
@@ -59,7 +47,9 @@ if __name__ == '__main__':
     # If all the data has been collected, the length of the result will be less than the limit
     print(len(res))
 ```
+
 This is a dynamic website demo. It uses the JavaScript to load the data.So we need to load a selenium webdriver to drive the JavaScript.
+
 ```python
 import crawlist as cl
 
@@ -84,6 +74,7 @@ if __name__ == '__main__':
 
 ```
 
-## Documenting
+### Documenting
+
 If you are interested and would like to see more detailed documentation, please click on the picture below.\
- <a href="https://wwydev.gitbook.io/crawlist/"><img src="https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png" alt="crawlist" style="width:220px; height:100px" ></a>
+[![crawlist](https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png)](https://wwydev.gitbook.io/crawlist/)
