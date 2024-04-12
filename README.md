@@ -1,14 +1,31 @@
 ---
 description: A universal solution for web crawling lists
+layout:
+  title:
+    visible: false
+  description:
+    visible: false
+  tableOfContents:
+    visible: true
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
-# 👾 crawlist
+# 👾 home
 
-[![crawlist](https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png)](https://github.com/WwwwwyDev/crawlist)
+<div align="left">
 
+<figure><img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="" width="375"><figcaption></figcaption></figure>
 
+</div>
 
-[![pypi](https://img.shields.io/pypi/v/crawlist) ](https://pypi.python.org/pypi/crawlist)![python](https://img.shields.io/badge/python-3.6.0+-blue) [![GitHub stars](https://img.shields.io/github/stars/WwwwwyDev/crawlist)](https://github.com/WwwwwyDev/crawlist/stargazers)\
+## crawlist
+
+A universal solution for web crawling lists
+
+[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="original"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python" data-size="original"> [<img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars" data-size="original">](https://github.com/WwwwwyDev/crawlist/stargazers)\
 
 
 ### introduction

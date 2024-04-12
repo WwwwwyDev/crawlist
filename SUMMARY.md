@@ -1,3 +1,4 @@
 # Table of contents
 
-* [👾 crawlist](README.md)
+* [👾 home](README.md)
+* [🤞 selector](selector.md)
