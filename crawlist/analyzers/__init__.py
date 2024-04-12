@@ -1,4 +1,4 @@
-from .analyzer import Analyzer, AnalyzerPrettify
+from .analyzer import Analyzer, AnalyzerPrettify, AnalyzerLinks
 from .static_pager import StaticRedirectPager, StaticListRedirectPager
 from .dynamic_pager import (DynamicListRedirectPager, DynamicRedirectPager, DynamicScrollPager, DynamicLineButtonPager,
                             DynamicNumButtonPager, DynamicNextButtonPager)

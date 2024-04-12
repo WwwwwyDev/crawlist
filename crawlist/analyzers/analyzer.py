@@ -1,3 +1,4 @@
+import re
 import traceback
 from typing import Any, Generator
 from .selector import Selector
@@ -115,3 +116,15 @@ class AnalyzerPrettify(Analyzer):
                 i += 1
         result = "".join(result_list)
         return result
+
+
+class AnalyzerLinks(Analyzer):
+    """
+    分析器，提取所有链接
+    """
+    url_regex = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+
+    def after(self, html: str) -> list:
+        # 使用正则表达式找到所有匹配项
+        links = re.findall(AnalyzerLinks.url_regex, html)
+        return links

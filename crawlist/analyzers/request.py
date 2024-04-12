@@ -10,17 +10,14 @@ class Request(BaseRequest):
     """
     http请求对象，如果需要重写，请继承Request对象
     """
-    def __init__(self, headers=None, proxies=None):
-        if proxies is None:
-            proxies = {}
-        if headers is None:
-            headers = {}
-        self.headers = headers
-        self.proxies = proxies
 
     def request(self, uri: str) -> str:
         try:
-            r = requests.get(uri, headers=self.headers, proxies=self.proxies)
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
+                'Cache-Control': 'max-age=0',
+            }
+            r = requests.get(uri, headers=headers)
             r.raise_for_status()
             r.encoding = r.apparent_encoding
             return r.text

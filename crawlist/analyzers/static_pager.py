@@ -10,10 +10,7 @@ class StaticPager(Pager):
         :param interval: 抓取list频率，可使用self.sleep()方法控制频率
         """
         if not request:
-            self.request = Request(headers={
-                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
-                'Cache-Control': 'max-age=0',
-            })
+            self.request = Request()
         else:
             self.request = request
         super().__init__(interval=interval)
