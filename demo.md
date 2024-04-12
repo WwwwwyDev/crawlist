@@ -100,7 +100,7 @@ import crawlist as cl
 if __name__ == '__main__':
     pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international")
     selector = cl.CssSelector(pattern="#ec > div.content > section > div.whitecon.boxTitle.boxText > ul > li")
-    analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
+    analyzer = cl.AnalyzerLinks(pager=pager, selector=selector)
     res = []
     for tr in analyzer(100):
         print(tr)

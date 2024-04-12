@@ -6,7 +6,7 @@ description: choose the html element
 
 ### what is selector?
 
-The purpose of designing a selector is to distinguish various methods of selecting HTML elements (xpath, CSS, regex). We will use a selector to select the list elements in the HTML. Of course, we also need to use selectors to select the WebElement of selenium, so that the framework can operate on click events. If you don't know what selenium is, please learn it first.
+The purpose of designing a selector is to distinguish various methods of selecting HTML elements (xpath, css, regex). We will use a selector to select the list elements in the HTML. Of course, we also need to use selectors to select the WebElement of selenium, so that the framework can operate on click events. If you don't know what selenium is, please learn it first.
 
 ### type of selector
 

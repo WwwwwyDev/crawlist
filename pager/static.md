@@ -1,0 +1,6 @@
+---
+description: statcs
+---
+
+# 📗 static
+
