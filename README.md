@@ -13,19 +13,15 @@ layout:
     visible: true
 ---
 
-# 👾 home
+# home
 
-<div align="left">
-
-<a href="https://github.com/WwwwwyDev/crawlist"><img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="crawlist" style="width:275px; height:190px" ></a>
-
-</div>
+[<img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="crawlist" data-size="original">](https://github.com/WwwwwyDev/crawlist)
 
 ## crawlist
 
 A universal solution for web crawling lists
 
-[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="line"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python" data-size="line"> [<img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars" data-size="line"> ](https://github.com/WwwwwyDev/crawlist/stargazers)[<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&#x26;logo=github&#x26;logoColor=white" alt="GitHub" data-size="line">](https://github.com/WwwwwyDev/crawlist)
+[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="line"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python" data-size="line">
 
 {% embed url="https://github.com/WwwwwyDev/crawlist" %}
 
