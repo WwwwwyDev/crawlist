@@ -2,7 +2,7 @@
 description: Some cases help you better understand it
 ---
 
-# ⛴️ demo
+# 👾 demo
 
 ### StaticPager
 
@@ -196,6 +196,34 @@ if __name__ == '__main__':
         res.append(tr)
     print(len(res))
 
+```
+
+```python
+from selenium.webdriver.remote.webdriver import WebDriver
+
+import crawlist as cl
+
+if __name__ == '__main__':
+    button_selector = cl.CssWebElementSelector(pattern='#frs_list_pager > a')
+    uri = "https://tieba.baidu.com/f?kw=%E8%B4%B4%E5%90%A7&ie=utf-8&pn=0"
+
+
+    class MyPager(cl.DynamicNumButtonPager):
+        def pre_load(self, webdriver: WebDriver = None) -> bool:
+            webdriver.get(uri)
+            cl.Action.click(webdriver, '//*[@id="tiebaCustomPassLogin"]/div[2]/span')
+
+
+    pager = MyPager(uri=uri,
+                    button_selector=button_selector)
+    selector = cl.CssSelector(pattern='#thread_list > li')
+    analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
+    res = []
+    for tr in analyzer(100):
+        print(tr)
+        res.append(tr)
+    print(len(res))
+    pager.webdriver.quit()
 ```
 
 ### Implement your own Request
