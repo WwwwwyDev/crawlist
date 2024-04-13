@@ -10,8 +10,8 @@ class Analyzer(BaseAnalyzer):
     def __init__(self, pager: Pager, selector: Selector) -> None:
         """
         Achieve linkage between pagers and selectors
-        : param pager: Pager (Pager object or its subclass implementation)
-        : param selector: Selector (Selector object or its subclass implementation)
+        :param pager: Pager (Pager object or its subclass implementation)
+        :param selector: Selector (Selector object or its subclass implementation)
         """
 ```
 
