@@ -18,12 +18,14 @@ class DynamicPager(Pager):
         if not webdriver:
             option = wd.ChromeOptions()
             option.add_argument("start-maximized")
+            option.page_load_strategy = 'eager'
             option.add_argument("--headless")
             option.add_argument("window-size=1920x3000")
             agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
             option.add_argument(agent)
 
             self.webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
+            self.webdriver.implicitly_wait(10)
         else:
             self.webdriver = webdriver
         super().__init__(interval=interval)
