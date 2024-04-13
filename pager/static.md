@@ -1,10 +1,10 @@
 ---
-description: statcs
+description: StaticPager
 layout:
   title:
     visible: true
   description:
-    visible: false
+    visible: true
   tableOfContents:
     visible: true
   outline:
@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# static
+# 👾 static
 
 There are two types of implementation for static paginators
 

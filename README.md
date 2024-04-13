@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# home
+# 👾 home
 
 [<img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="crawlist" data-size="original">](https://github.com/WwwwwyDev/crawlist)
 

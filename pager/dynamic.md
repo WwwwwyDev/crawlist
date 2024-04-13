@@ -1,10 +1,10 @@
 ---
-description: d
+description: DynamicPager
 layout:
   title:
     visible: true
   description:
-    visible: false
+    visible: true
   tableOfContents:
     visible: true
   outline:
@@ -13,13 +13,12 @@ layout:
     visible: true
 ---
 
-# dynamic
+# 👾 dynamic
 
 There are six types of implementation for dynamic paginators
 
-```python
-class DynamicRedirectPager(DynamicPager):
-    def __init__(self, uri: str, uri_split: str, webdriver: WebDriver = None, start: int = 1, offset: int = 1,
+<pre class="language-python"><code class="lang-python"><strong>class DynamicRedirectPager(DynamicPager):
+</strong>    def __init__(self, uri: str, uri_split: str, webdriver: WebDriver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
         Based on dynamic web page analyzer (redirect page flipping)
@@ -30,7 +29,7 @@ class DynamicRedirectPager(DynamicPager):
         : param offset: pagination interval
         : param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-```
+</code></pre>
 
 ```python
 class DynamicListRedirectPager(DynamicPager):

@@ -2,7 +2,7 @@
 description: choose the html element
 ---
 
-# 🤞 selector
+# 👾 selector
 
 ### What is selector?
 
