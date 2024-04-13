@@ -3,7 +3,7 @@ import traceback
 from typing import Any, Generator
 from .selector import Selector
 from .pager import Pager
-
+from .trie import Trie
 
 class BaseAnalyzer(object):
     """
@@ -42,7 +42,7 @@ class Analyzer(BaseAnalyzer):
 
     def crawl(self, limit: int) -> Generator[Any, str, None]:
         try:
-            res_set = set()
+            res_set = Trie()
             html = self.pager.html
             if not html:
                 return

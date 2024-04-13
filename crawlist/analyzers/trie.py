@@ -6,18 +6,6 @@ class Trie(object):
     def __repr__(self):
         return str(self.trie)
 
-    def buildTree(self, wordList):
-        for word in wordList:
-            t = self.trie            
-            for w in word:
-                if w not in t:
-                    t[w] = {'count': 0}
-                t[w]['count'] += 1
-                t = t[w]
-
-            self.count += 1
-            t['end'] = 1
-
     def add(self, word):
         t = self.trie
         for w in word:
@@ -41,7 +29,6 @@ class Trie(object):
         self.count -= 1
         t['end'] = 0
 
-
     def search(self, word):
         t = self.trie
         for w in word:
@@ -52,13 +39,8 @@ class Trie(object):
             return True
         return False
 
-    def prefix_count(self, prefix):
-        t = self.trie
-        for w in prefix:
-            if w not in t:
-                return -1
-            t = t[w]
-        return t['count']
-    
     def __contains__(self, item):
         return self.search(item)
+
+    def __len__(self):
+        return self.count
