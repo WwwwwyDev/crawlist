@@ -25,7 +25,13 @@ layout:
 
 A universal solution for web crawling lists
 
-[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="original"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python" data-size="original"> [<img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars" data-size="original">](https://github.com/WwwwwyDev/crawlist/stargazers)
+  <a href="https://pypi.python.org/pypi/crawlist">
+    <img src="https://img.shields.io/pypi/v/crawlist" alt="pypi">
+  </a>
+  <img src="https://img.shields.io/badge/python-3.6.0+-blue" alt="python">
+  <a href="https://github.com/WwwwwyDev/crawlist/stargazers"><img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars"style="max-width: 100%;">
+  </a>
+  [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/WwwwwyDev/crawlist)
 
 ### introduction
 
