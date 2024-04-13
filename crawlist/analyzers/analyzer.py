@@ -7,14 +7,14 @@ from .pager import Pager
 
 class BaseAnalyzer(object):
     """
-    分析器接口,需要子类方法实现
+    Analyzer interface, requires subclass method implementation
     """
 
     def list(self, limit: int) -> Generator[Any, Any, None]:
         """
-        列表生成器接口，每次生成一条数据
-        :param limit: 取最新的条数
-        :return: 抓取到的格式化list
+        List generator interface, generating one data at a time
+        :param limit: Take the latest number of entries
+        :return: Captured formatted list
         """
         for element in self.crawl(limit=limit):
             yield self.after(element)
@@ -30,15 +30,12 @@ class BaseAnalyzer(object):
 
 
 class Analyzer(BaseAnalyzer):
-    """
-    分析器
-    """
 
     def __init__(self, pager: Pager, selector: Selector) -> None:
         """
-        分析器
-        :param pager: 分页器(Pagination对象)
-        :param selector: 抽取list的选择器(Selector对象)
+        Achieve linkage between pagers and selectors
+        :param pager: Pager (Pager object or its subclass implementation)
+        :param selector: Selector (Selector object or its subclass implementation)
         """
         self.pager: Pager = pager
         self.selector: Selector = selector
@@ -51,7 +48,7 @@ class Analyzer(BaseAnalyzer):
                 return
             res: list[str] = self.selector(html)
             cnt = 0
-            while cnt < len(res) and limit:  # 生成数据
+            while cnt < len(res) and limit:  # Generate data
                 element = res[cnt]
                 if element not in res_set:
                     res_set.add(element)
@@ -67,7 +64,7 @@ class Analyzer(BaseAnalyzer):
                 res = self.selector(html)
                 flag = False
                 cnt = 0
-                while cnt < len(res) and limit:  # 生成数据
+                while cnt < len(res) and limit:  # Generate data
                     element = res[cnt]
                     if element not in res_set:
                         flag = True
@@ -90,7 +87,7 @@ class Analyzer(BaseAnalyzer):
 
 class AnalyzerPrettify(Analyzer):
     """
-    分析器，美化输出
+    Analyzer, beautify output
     """
 
     filter_list = ["\n", "\r", "\t", "<br>", "<br/>", "</br>"]
@@ -120,7 +117,7 @@ class AnalyzerPrettify(Analyzer):
 
 class AnalyzerLinks(Analyzer):
     """
-    分析器，提取所有链接
+    Analyzer, extract all links
     """
     url_regex = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 

@@ -8,7 +8,7 @@ class BaseRequest(object):
 
 class Request(BaseRequest):
     """
-    http请求对象，如果需要重写，请继承Request对象
+    HTTP request object, if it needs to be rewritten, please inherit the Request object
     """
 
     def request(self, uri: str) -> str:

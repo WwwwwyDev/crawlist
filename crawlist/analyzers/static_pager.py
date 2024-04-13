@@ -6,8 +6,8 @@ from .pager import Pager
 class StaticPager(Pager):
     def __init__(self, request: Request = None, interval: float = 0.1):
         """
-        :param request: 请求对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        :param request: Request object
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         if not request:
             self.request = Request()
@@ -20,13 +20,13 @@ class StaticRedirectPager(StaticPager):
     def __init__(self, uri: str, uri_split: str, request: Request = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
-        基于静态网页分析器(重定向翻页)
-        :param uri: 第一页链接
-        :param uri_split: 链接分页(使用%v代替) example:https://www.boc.cn/sourcedb/whpj/index_%v.html
-        :param request: 请求对象
-        :param start: 起始页
-        :param offset: 分页间隔
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on static web page analyzer (redirect page flipping)
+        :param uri: First page link
+        :param uri_split: Link pagination (using %v instead) Example: https://www.boc.cn/sourcedb/whpj/index_%v.html
+        :param request: Request object
+        :param start: Start page
+        :param offset: pagination interval
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert '%v' in uri_split
         assert Valid.is_valid_url(uri) and Valid.is_valid_url(uri_split.replace('%v', str(start)))
@@ -50,10 +50,10 @@ class StaticRedirectPager(StaticPager):
 class StaticListRedirectPager(StaticPager):
     def __init__(self, uris: list, request: Request = None, interval: float = 0.1) -> None:
         """
-        基于静态网页分析器(重定向翻页)
-        :param uris: 含多个uri的list，按照顺序往下执行
-        :param request: 请求对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on static web page analyzer (redirect page flipping)
+        :param uris: A list containing multiple uris, executed in order downwards
+        :param request: Request object
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert isinstance(uris, list)
         for uri in uris:

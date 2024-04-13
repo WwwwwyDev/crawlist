@@ -15,8 +15,8 @@ class BaseSelector(object):
 class Selector(BaseSelector):
     def __init__(self, pattern: str) -> None:
         """
-        选择器
-        :param pattern: 抓取规则
+        Selector
+        :param pattern: Grab rules
         """
         assert self.valid(pattern)
         self.pattern = pattern
@@ -34,8 +34,8 @@ class Selector(BaseSelector):
 class WebElementSelector(BaseSelector):
     def __init__(self, pattern: str) -> None:
         """
-        webElement选择器(selenium)
-        :param pattern: 抓取规则
+        WebElement selector (selenium)
+        :param pattern: Grab rules
         """
         assert self.valid(pattern)
         self.pattern = pattern
@@ -52,7 +52,7 @@ class WebElementSelector(BaseSelector):
 
 class CssSelector(Selector):
     """
-    css选择器
+    css selector
     """
 
     def select(self, html: str) -> list[str]:
@@ -64,7 +64,7 @@ class CssSelector(Selector):
 
 class XpathSelector(Selector):
     """
-    xpath选择器
+    xpath selector
     """
 
     def select(self, html: str) -> list[str]:
@@ -76,7 +76,7 @@ class XpathSelector(Selector):
 
 class RegexSelector(Selector):
     """
-    正则表达式选择器
+    regex selector
     """
 
     def select(self, html: str) -> list[str]:

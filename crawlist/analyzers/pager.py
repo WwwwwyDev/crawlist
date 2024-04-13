@@ -10,23 +10,22 @@ class Pager(BasePager):
 
     def __init__(self, interval: float = 0.1):
         """
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         self.interval: float = interval
         self.half_interval: float = interval / 2
 
     def next(self) -> None:
         """
-        数据增量方法
-        :return:
+        Data Incremental Method
         """
         raise NotImplementedError
 
     @property
     def html(self) -> str:
         """
-        当前状态的html文本
-        :return:
+        HTML text in the current state
+        :return: The html text
         """
         raise NotImplementedError
 

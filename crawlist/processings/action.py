@@ -13,10 +13,10 @@ class Action:
     @staticmethod
     def click(driver: WebDriver, xpath: str) -> bool:
         """
-        处理点击事件
+        Handling click events
         :param driver: selenium webdriver
-        :param xpath: 点击按钮的xpath路径
-        :return: 是否成功
+        :param xpath: Click on the xpath path of the button
+        :return: Whether successful
         """
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
@@ -34,11 +34,11 @@ class Action:
     @staticmethod
     def inputKeyword(driver: WebDriver, xpath: str, keyword: str) -> bool:
         """
-        处理键盘输入事件
+        Handling keyboard input events
         :param driver: selenium webdriver
-        :param xpath: 输入框的xpath路径
-        :param keyword:  需要传入keyword关键词
-        :return: 是否成功
+        :param xpath: The xpath path of the input box
+        :param keyword: keyword needs to be passed in
+        :return: Whether successful
         """
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
@@ -51,10 +51,10 @@ class Action:
     @staticmethod
     def sendEnter(driver: WebDriver, xpath: str) -> bool:
         """
-        按一下回车键
+        Press the enter key once
         :param driver: selenium webdriver
-        :param xpath: 输入框的xpath路径
-        :return: 是否成功
+        :param xpath: The xpath path of the input box
+        :return: Whether successful
         """
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
@@ -67,9 +67,9 @@ class Action:
     @staticmethod
     def switchLastTab(driver: WebDriver) -> bool:
         """
-        切换到最后一个句柄
+        Switch to the last handle
         :param driver: selenium webdriver
-        :return: 是否成功
+        :return: Whether successful
         """
         try:
             window_handles = driver.window_handles
@@ -83,10 +83,10 @@ class Action:
     @staticmethod
     def switchTab(driver: WebDriver, index: int) -> bool:
         """
-        切换到第index个句柄
+        Switch to the index handle
         :param driver: selenium webdriver
-        :param index: 第index个句柄
-        :return: 是否成功
+        :param index: The index handle
+        :return: Whether successful
         """
         try:
             window_handles = driver.window_handles
@@ -98,11 +98,11 @@ class Action:
     @staticmethod
     def searchRedirect(driver: WebDriver, url: str, keyword: str) -> bool:
         """
-        将路径中的%s替换成keyword,并重定向
+        Replace % s in the path with keyword and redirect it
         :param driver:  selenium webdriver
-        :param url: 含%s的链接
-        :param keyword: 需要传入keyword关键词
-        :return: 是否成功
+        :param url: Link containing %s
+        :param keyword: keyword needs to be passed in
+        :return: Whether successful
         """
         try:
             url = url.replace(r"%s", keyword)
@@ -114,10 +114,10 @@ class Action:
     @staticmethod
     def redirect(driver: WebDriver, url: str) -> bool:
         """
-        将路径中的%s替换成keyword,并重定向
+        Direct redirection
         :param driver:  selenium webdriver
-        :param url: 需要重定向的链接
-        :return: 是否成功
+        :param url: Links that require redirection
+        :return: Whether successful
         """
         try:
             driver.get(url)

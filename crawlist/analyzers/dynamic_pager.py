@@ -12,8 +12,8 @@ from selenium.webdriver.chrome.service import Service
 class DynamicPager(Pager):
     def __init__(self, webdriver: WebDriver = None, interval: float = 0.1) -> None:
         """
-        :param webdriver: selenium的WebDriver对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        :param webdriver: WebDriver object for selenium
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         if not webdriver:
             option = wd.ChromeOptions()
@@ -30,8 +30,8 @@ class DynamicPager(Pager):
 
     def click_safety(self, button: WebElement) -> None:
         """
-        尝试多次点击按钮
-        :param button: 按钮元素
+        Attempt to click the button multiple times
+        :param button: Button elements
         """
         # 点击失败后多次尝试点击
         for _ in range(3):
@@ -56,13 +56,13 @@ class DynamicRedirectPager(DynamicPager):
     def __init__(self, uri: str, uri_split: str, webdriver: WebDriver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
-        基于动态网页分析器(重定向翻页)
-        :param uri: 第一页链接
-        :param uri_split: 链接分页(使用%v代理) example:https://www.boc.cn/sourcedb/whpj/index_%v.html
-        :param webdriver: selenium的WebDriver对象
-        :param start: 起始页
-        :param offset: 分页间隔
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (redirect page flipping)
+        :param uri: First page link
+        :param uri_split: Link pagination (using% v proxy) Example: https://www.boc.cn/sourcedb/whpj/index_%v.html
+        :param webdriver: WebDriver object for selenium
+        :param start: Start page
+        :param offset: pagination interval
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert '%v' in uri_split
         assert Valid.is_valid_url(uri) and Valid.is_valid_url(uri_split.replace('%v', str(start)))
@@ -88,10 +88,10 @@ class DynamicRedirectPager(DynamicPager):
 class DynamicListRedirectPager(DynamicPager):
     def __init__(self, uris: list, webdriver: WebDriver = None, interval: float = 0.1) -> None:
         """
-        基于动态网页分析器(重定向翻页)
-        :param uris: 含多个uri的list，按照顺序往下执行
-        :param webdriver: selenium的WebDriver对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (redirect page flipping)
+        :param uris: A list containing multiple uris, executed in order downwards
+        :param webdriver: WebDriver object for selenium
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert isinstance(uris, list)
         for uri in uris:
@@ -120,10 +120,10 @@ class DynamicListRedirectPager(DynamicPager):
 class DynamicScrollPager(DynamicPager):
     def __init__(self, uri: str, webdriver: WebDriver = None, interval: float = 1) -> None:
         """
-        基于动态网页分析器(滚动翻页)
-        :param uri: 网页链接，该网页是滚动翻页
-        :param webdriver: selenium的WebDriver对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (scrolling and flipping)
+        :param uri: webpage link, which is a scrolling page
+        :param webdriver: WebDriver object for selenium
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
@@ -152,11 +152,11 @@ class DynamicLineButtonPager(DynamicPager):
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None,
                  interval: float = 1) -> None:
         """
-        基于动态网页分析器(行按钮翻页)
-        :param uri: 网页链接，该网页是行按钮翻页
-        :param button_selector: 行按钮选择器
-        :param webdriver: selenium的WebDriver对象
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (row button page flipping)
+        :param uri: webpage link, which is a row button for flipping pages
+        :param button.selector: row button selector
+        :param webdriver: WebDriver object for selenium
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
@@ -180,13 +180,13 @@ class DynamicNumButtonPager(DynamicPager):
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
-        基于动态网页分析器(数字按钮翻页)
-        :param uri: 网页链接，该网页是数字按钮翻页
-        :param button_selector: 数字按钮选择器
-        :param webdriver: selenium的WebDriver对象
-        :param start: 起始页
-        :param offset: 分页间隔
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (digital button flipping)
+        :param uri: webpage link, which is a numeric button for flipping pages
+        :param button.selector: numeric button selector
+        :param webdriver: WebDriver object for selenium
+        :param start: Start page
+        :param offset: pagination interval
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
@@ -255,13 +255,13 @@ class DynamicNextButtonPager(DynamicPager):
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: WebDriver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
-        基于动态网页分析器(点击下一页按钮翻页)
-        :param uri: 网页链接，该网页是点击下一页按钮翻页
-        :param button_selector: 点击下一页按钮选择器
-        :param webdriver: selenium的WebDriver对象
-        :param start: 起始页
-        :param offset: 分页间隔
-        :param interval: 抓取list频率，可使用self.sleep()方法控制频率
+        Based on dynamic web page analyzer (click the next page button to page)
+        :param uri: Web page link, which is a page that can be flipped by clicking the next page button
+        :param button.selector: Click on the next page button selector
+        :param webdriver: WebDriver object for selenium
+        :param start: Start page
+        :param offset: pagination interval
+        :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert Valid.is_valid_url(uri)
         super().__init__(webdriver=webdriver, interval=interval)
