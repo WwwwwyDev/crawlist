@@ -20,7 +20,7 @@ class Action:
         """
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
-        # 尝试点击两次
+        # Try clicking twice
         try:
             element.click()
             time.sleep(random.uniform(0.1, 0.2))

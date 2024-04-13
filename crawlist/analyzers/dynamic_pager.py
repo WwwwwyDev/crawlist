@@ -35,7 +35,7 @@ class DynamicPager(Pager):
         Attempt to click the button multiple times
         :param button: Button elements
         """
-        # 点击失败后多次尝试点击
+        # Multiple attempts to click after failed clicks
         for _ in range(3):
             try:
                 button.click()
@@ -225,10 +225,10 @@ class DynamicNumButtonPager(DynamicPager):
     @staticmethod
     def check_num_button(element: WebElement, num: int = 1) -> bool:
         """
-        查找元素的inner_text中是否有数字
+        Find if there are numbers in the inner_text of an element
         :param element: selenium WebElement
-        :param num: 判断的具体数字
-        :return: 是否有数字
+        :param num: Specific numbers for judgment
+        :return: Is there a number
         """
         html = element.text
         inner_text = html
@@ -242,10 +242,10 @@ class DynamicNumButtonPager(DynamicPager):
     @staticmethod
     def find_num_button(elements: list[WebElement], num: int = 1) -> WebElement | None:
         """
-        在一组元素中，寻找符合条件的元素
-        :param elements: selenium WebElement列表
-        :param num: 需要的数字
-        :return: 选中的按钮，没找到则为None
+        Searching for elements that meet the criteria within a set of elements
+        :param elements: selenium WebElement lists
+        :param num: Required Numbers
+        :return: The selected button, if not found, is None
         """
         for element in elements:
             if DynamicNumButtonPager.check_num_button(element, num):
