@@ -6,7 +6,7 @@ description: Some cases help you better understand it
 
 ### StaticPager
 
-#### **StaticPagerRedirect**
+#### StaticRedirectPager
 
 ```python
 import crawlist as cl
@@ -26,7 +26,7 @@ if __name__ == '__main__':
     print(len(res))
 ```
 
-#### **StaticPagerListRedirect**
+#### StaticListRedirectPager
 
 ```python
 import crawlist as cl
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 
 ### **Dynamic**Pager
 
-#### **DynamicPagerRedirect**
+#### DynamicRedirectPager
 
 ```python
 import crawlist as cl
@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
 ```
 
-#### **DynamicPagerListRedirect**
+#### **D**ynamicListRedirectPager
 
 ```python
 import crawlist as cl
@@ -94,7 +94,7 @@ if __name__ == '__main__':
 
 ```
 
-#### **DynamicPagerScroll**
+#### **D**ynamicScrollPager
 
 ```python
 import crawlist as cl
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 
 ```
 
-#### **DynamicPagerLineButton**
+#### **D**ynamicLineButtonPager
 
 ```python
 import crawlist as cl
@@ -131,7 +131,7 @@ if __name__ == '__main__':
     pager.webdriver.quit()
 ```
 
-#### **DynamicPagerNumButton**
+#### **D**ynamicNumButtonPager
 
 ```python
 import crawlist as cl
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 
 ```
 
-#### **DynamicNextButtonPager**
+#### **D**ynamicNextButtonPager
 
 ```python
 import crawlist as cl
