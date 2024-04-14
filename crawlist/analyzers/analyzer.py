@@ -93,7 +93,7 @@ class AnalyzerPrettify(Analyzer):
     filter_list = ["\n", "\r", "\t", "<br>", "<br/>", "</br>"]
 
     def after(self, html: str) -> str:
-        # 去除html中无用信息
+        # Remove useless information from HTML
         result_list = []
         i = 0
         while i < len(html):
@@ -117,11 +117,11 @@ class AnalyzerPrettify(Analyzer):
 
 class AnalyzerLinks(Analyzer):
     """
-    Analyzer, extract all links 
+    Analyzer, extract all links
     """
     url_regex = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 
     def after(self, html: str) -> list:
-        # 使用正则表达式找到所有匹配项
+        # Use regular expressions to find all matches
         links = re.findall(AnalyzerLinks.url_regex, html)
         return links
