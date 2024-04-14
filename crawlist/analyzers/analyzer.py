@@ -5,6 +5,7 @@ from .selector import Selector
 from .pager import Pager
 from .trie import Trie
 
+
 class BaseAnalyzer(object):
     """
     Analyzer interface, requires subclass method implementation

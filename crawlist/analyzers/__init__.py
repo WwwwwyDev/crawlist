@@ -1,6 +1,4 @@
 from .analyzer import Analyzer, AnalyzerPrettify, AnalyzerLinks
-from .static_pager import StaticRedirectPager, StaticListRedirectPager
-from .dynamic_pager import (DynamicListRedirectPager, DynamicRedirectPager, DynamicScrollPager, DynamicLineButtonPager,
-                            DynamicNumButtonPager, DynamicNextButtonPager)
+from .pager import *
 from .request import Request
 from .selector import CssSelector, XpathSelector, RegexSelector, XpathWebElementSelector, CssWebElementSelector

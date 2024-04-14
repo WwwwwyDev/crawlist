@@ -1,12 +1,11 @@
 import parsel
 from selenium.webdriver.remote.webelement import WebElement
-from .valid import Valid
-from .pager import Pager
-from .selector import WebElementSelector
 from selenium.webdriver.remote.webdriver import WebDriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium import webdriver as wd
-from selenium.webdriver.chrome.service import Service
+
+from ..driver import Driver
+from ..valid import Valid
+from .pager import Pager
+from ..selector import WebElementSelector
 
 
 class DynamicPager(Pager):
@@ -16,16 +15,7 @@ class DynamicPager(Pager):
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         if not webdriver:
-            option = wd.ChromeOptions()
-            option.add_argument("start-maximized")
-            option.page_load_strategy = 'eager'
-            option.add_argument("--headless")
-            option.add_argument("window-size=1920x3000")
-            agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
-            option.add_argument(agent)
-
-            self.webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
-            self.webdriver.implicitly_wait(10)
+            self.webdriver = Driver()()
         else:
             self.webdriver = webdriver
         super().__init__(interval=interval)
@@ -44,7 +34,7 @@ class DynamicPager(Pager):
             except Exception:
                 pass
 
-    def pre_load(self, webdriver: WebDriver = None) -> bool:
+    def pre_load(self, webdriver: WebDriver) -> bool:
         return False
 
     def __del__(self):
