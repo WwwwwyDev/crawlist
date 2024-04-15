@@ -11,6 +11,17 @@ class BaseDriver(object):
 class Driver(BaseDriver):
 
     def get_driver(self) -> WebDriver:
+        raise NotImplementedError
+
+    def __call__(self) -> WebDriver:
+        return self.get_driver()
+
+
+class DefaultDriver(Driver):
+    def __init__(self):
+        pass
+
+    def get_driver(self) -> WebDriver:
         option = wd.ChromeOptions()
         option.add_argument("start-maximized")
         option.page_load_strategy = 'eager'
@@ -22,6 +33,3 @@ class Driver(BaseDriver):
         webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
         webdriver.implicitly_wait(10)
         return webdriver
-
-    def __call__(self) -> WebDriver:
-        return self.get_driver()
