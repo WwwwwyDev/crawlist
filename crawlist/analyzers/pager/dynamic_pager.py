@@ -2,10 +2,10 @@ import parsel
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from ..driver import Driver, DefaultDriver
-from ..valid import Valid
-from .pager import Pager
-from ..selector import WebElementSelector
+from crawlist.analyzers.pager.pager import Pager
+from crawlist.analyzers.driver import Driver, DefaultDriver, DefaultRemoteDriver
+from crawlist.analyzers.valid import Valid
+from crawlist.analyzers.selector import WebElementSelector
 
 
 class DynamicPager(Pager):
@@ -61,6 +61,7 @@ class DynamicRedirectPager(DynamicPager):
         assert offset >= 1 and start >= 0
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
+        self.sleep()
         self.index = start
         self.offset = offset
         self.current_uri = uri
@@ -91,6 +92,7 @@ class DynamicListRedirectPager(DynamicPager):
         assert len(uris) > 0
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
+        self.sleep()
         self.index = 0
         self.uris = uris
 
@@ -121,6 +123,7 @@ class DynamicScrollPager(DynamicPager):
         super().__init__(webdriver=webdriver, interval=interval)
         if not self.pre_load(self.webdriver):
             self.webdriver.get(uri)
+        self.sleep()
         self.uri = uri
 
     js_code = '''he = setInterval(() => {
@@ -154,6 +157,7 @@ class DynamicLineButtonPager(DynamicPager):
         super().__init__(webdriver=webdriver, interval=interval)
         if not self.pre_load(self.webdriver):
             self.webdriver.get(uri)
+        self.sleep()
         assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.uri = uri
         self.button = button_selector
@@ -184,6 +188,7 @@ class DynamicNumButtonPager(DynamicPager):
         super().__init__(webdriver=webdriver, interval=interval)
         if not self.pre_load(self.webdriver):
             self.webdriver.get(uri)
+        self.sleep()
         assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.uri = uri
         self.index = 1
@@ -259,6 +264,7 @@ class DynamicNextButtonPager(DynamicPager):
         super().__init__(webdriver=webdriver, interval=interval)
         if not self.pre_load(self.webdriver):
             self.webdriver.get(uri)
+        self.sleep()
         assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.uri = uri
         self.offset = offset

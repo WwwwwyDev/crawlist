@@ -1,6 +1,6 @@
-from ..request import Request, DefaultRequest
-from ..valid import Valid
-from .pager import Pager
+from crawlist.analyzers.pager.pager import Pager
+from crawlist.analyzers.request import Request, DefaultRequest
+from crawlist.analyzers.valid import Valid
 
 
 class StaticPager(Pager):

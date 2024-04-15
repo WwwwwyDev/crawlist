@@ -1,3 +1,4 @@
+import time
 import unittest
 import crawlist as cl
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -222,6 +223,17 @@ class TestCase(unittest.TestCase):
         print(len(res))
         pager.webdriver.quit()
 
+    def test_13(self):
+
+        pager = cl.DynamicScrollPager(uri="https://www.qtvnews.com/lanjing/qd/view/listData.html?id=10390", interval=3)
+        selector = cl.CssSelector(pattern='#datalist > dl')
+        analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
+        res = []
+        for tr in analyzer(TestCase.limit):
+            print(tr)
+            res.append(tr)
+        print(len(res))
+        pager.webdriver.quit()
 
 if __name__ == '__main__':
     unittest.main()

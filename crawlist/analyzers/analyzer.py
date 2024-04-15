@@ -1,9 +1,10 @@
 import re
 import traceback
 from typing import Any, Generator
-from .selector import Selector
-from .pager import Pager
-from .trie import Trie
+
+from crawlist.analyzers.pager.pager import Pager
+from crawlist.analyzers.selector import Selector
+from crawlist.analyzers.trie import Trie
 
 
 class BaseAnalyzer(object):
