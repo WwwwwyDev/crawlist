@@ -12,6 +12,15 @@ class Request(BaseRequest):
     """
 
     def request(self, uri: str) -> str:
+        raise NotImplementedError
+
+    def __call__(self, uri) -> str:
+        return self.request(uri)
+
+
+class DefaultRequest(Request):
+
+    def request(self, uri: str) -> str:
         try:
             headers = {
                 "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
@@ -23,7 +32,3 @@ class Request(BaseRequest):
             return r.text
         except HTTPError:
             return ""
-
-    def __call__(self, uri) -> str:
-        return self.request(uri)
-

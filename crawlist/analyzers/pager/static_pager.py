@@ -1,4 +1,4 @@
-from ..request import Request
+from ..request import Request, DefaultRequest
 from ..valid import Valid
 from .pager import Pager
 
@@ -10,7 +10,7 @@ class StaticPager(Pager):
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         if not request:
-            self.request = Request()
+            self.request = DefaultRequest()
         else:
             self.request = request
         super().__init__(interval=interval)

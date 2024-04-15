@@ -167,6 +167,9 @@ class TestCase(unittest.TestCase):
 
     def test_11(self):
         class MyRequest(cl.Request):
+            def __init__(self):
+                pass
+
             def request(self, uri: str) -> str:
                 try:
                     headers = {
@@ -195,15 +198,21 @@ class TestCase(unittest.TestCase):
         print(len(res))
 
     def test_12(self):
-        option = wd.ChromeOptions()
-        option.add_argument("start-maximized")
-        option.add_argument("--headless")
-        option.add_argument("window-size=1920x3000")
-        agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
-        option.add_argument(agent)
-        my_webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
+        class MyDriver(cl.Driver):
+            def __init__(self):
+                pass
 
-        pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=my_webdriver)
+            def get_driver(self) -> WebDriver:
+                option = wd.ChromeOptions()
+                option.add_argument("start-maximized")
+                option.add_argument("--headless")
+                option.add_argument("window-size=1920x3000")
+                agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
+                option.add_argument(agent)
+                my_webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
+                return my_webdriver
+
+        pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=MyDriver())
         selector = cl.CssSelector(pattern="#ec > div.content > section > div.whitecon.boxTitle.boxText > ul > li")
         analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
         res = []
