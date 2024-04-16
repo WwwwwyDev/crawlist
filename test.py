@@ -130,8 +130,9 @@ class TestCase(unittest.TestCase):
         class MyPager(cl.DynamicLineButtonPager):
             def pre_load(self, webdriver: WebDriver) -> bool:
                 webdriver.get("https://kuaixun.eastmoney.com/")
-                cl.Action.click(webdriver,
-                                '/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]')
+                script = {"method": "click",
+                          "xpath":  "/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]"}
+                cl.Script(script)(webdriver)
                 return True
 
         pager = MyPager(uri="https://kuaixun.eastmoney.com/",
@@ -152,7 +153,9 @@ class TestCase(unittest.TestCase):
         class MyPager(cl.DynamicNumButtonPager):
             def pre_load(self, webdriver: WebDriver) -> bool:
                 webdriver.get(uri)
-                cl.Action.click(webdriver, '//*[@id="tiebaCustomPassLogin"]/div[2]/span')
+                script = {"method": "click",
+                          "xpath": '//*[@id="tiebaCustomPassLogin"]/div[2]/span'}
+                cl.Script(script)(webdriver)
                 return True
 
         pager = MyPager(uri=uri,
@@ -234,6 +237,7 @@ class TestCase(unittest.TestCase):
             res.append(tr)
         print(len(res))
         pager.webdriver.quit()
+
 
 if __name__ == '__main__':
     unittest.main()

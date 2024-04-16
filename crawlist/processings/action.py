@@ -18,6 +18,7 @@ class Action:
         :param xpath: Click on the xpath path of the button
         :return: Whether successful
         """
+        assert isinstance(xpath, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         # Try clicking twice
@@ -40,6 +41,7 @@ class Action:
         :param keyword: keyword needs to be passed in
         :return: Whether successful
         """
+        assert isinstance(xpath, str) and isinstance(keyword, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         try:
@@ -56,6 +58,7 @@ class Action:
         :param xpath: The xpath path of the input box
         :return: Whether successful
         """
+        assert isinstance(xpath, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         try:
@@ -88,6 +91,7 @@ class Action:
         :param index: The index handle
         :return: Whether successful
         """
+        assert isinstance(index, int)
         try:
             window_handles = driver.window_handles
             driver.switch_to.window(window_handles[index])
@@ -104,6 +108,7 @@ class Action:
         :param keyword: keyword needs to be passed in
         :return: Whether successful
         """
+        assert isinstance(url, str) and isinstance(keyword, str)
         try:
             url = url.replace(r"%s", keyword)
             driver.get(url)
@@ -119,6 +124,7 @@ class Action:
         :param url: Links that require redirection
         :return: Whether successful
         """
+        assert isinstance(url, str)
         try:
             driver.get(url)
         except Exception:

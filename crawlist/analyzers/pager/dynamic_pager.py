@@ -3,7 +3,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from crawlist.analyzers.pager.pager import Pager
-from crawlist.analyzers.driver import Driver, DefaultDriver, DefaultRemoteDriver
+from crawlist.analyzers.driver import Driver, DefaultDriver
 from crawlist.analyzers.valid import Valid
 from crawlist.analyzers.selector import WebElementSelector
 
