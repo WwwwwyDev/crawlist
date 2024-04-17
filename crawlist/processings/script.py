@@ -68,22 +68,30 @@ class Script:
             method = temp.get("method")
             if not method:
                 raise ScriptError("(Deep %d) Method is missing" % deep)
-            if temp.get("next"):
+            if 'next' in temp:
                 temp.pop("next")
             temp.pop("method")
             temp["driver"] = None
             try:
                 Script.ACTIONS[method](**temp)
-            except TypeError or AssertionError or ParamTypeError as e:
-                doc: str = Script.ACTIONS[method].__doc__
-                info = "----------------------method info--------------------------"
-                params = "\ndef " + method + " " + signature(Script.ACTIONS[method]).__str__()
-                error = "[" + e.__class__.__name__ + "] " + e.__str__() + "\n"
-                raise ScriptError(
-                    "(Deep:%d method:%s) arguments is wrong\n" % (deep, method) + error + info + params + doc)
+            except TypeError as e:
+                Script.error(e, method, deep)
+            except AssertionError as e:
+                Script.error(e, method, deep)
+            except ParamTypeError as e:
+                Script.error(e, method, deep)
             except Exception:
                 pass
             script = script.get("next")
+
+    @staticmethod
+    def error(e: Exception, method: str, deep: int) -> None:
+        doc: str = Script.ACTIONS[method].__doc__
+        info = "----------------------method info--------------------------"
+        params = "\ndef " + method + " " + signature(Script.ACTIONS[method]).__str__()
+        error = "[" + e.__class__.__name__ + "] " + e.__str__() + "\n"
+        raise ScriptError(
+            "(Deep:%d method:%s) arguments is wrong\n" % (deep, method) + error + info + params + doc)
 
     def __call__(self, webdriver: WebDriver):
         return self.process(webdriver)

@@ -1,4 +1,5 @@
 from inspect import signature
+from functools import wraps
 
 
 class ParamTypeError(Exception):
@@ -25,6 +26,7 @@ def check(exclude: list | str):
         exclude = set(exclude)
 
     def wrapper(func):
+        @wraps(func)
         def inner_wrapper(*args, **kwargs):
             args_dict = {}
             index = 0
@@ -46,6 +48,8 @@ def check(exclude: list | str):
                     continue
                 if type_.annotation == type_.empty:
                     raise ParamTypeError(f"Parameter {name} must be indicated the type.")
+                if name not in all_kwargs:
+                    raise ParamTypeError(f"Parameter {name} is not in the defined parameter list.")
                 if all_kwargs[name] is None and type_.default is not type_.empty:
                     continue
                 if isinstance(all_kwargs[name], int) and type_.annotation is float:
