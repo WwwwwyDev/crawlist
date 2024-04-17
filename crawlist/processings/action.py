@@ -7,10 +7,13 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from crawlist.annotation import check
+
 
 class Action:
 
     @staticmethod
+    @check(exclude="driver")
     def click(driver: WebDriver, xpath: str) -> bool:
         """
         Handling click events
@@ -18,7 +21,6 @@ class Action:
         :param xpath: Click on the xpath path of the button
         :return: Whether successful
         """
-        assert isinstance(xpath, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         # Try clicking twice
@@ -33,6 +35,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def inputKeyword(driver: WebDriver, xpath: str, keyword: str) -> bool:
         """
         Handling keyboard input events
@@ -41,7 +44,6 @@ class Action:
         :param keyword: keyword needs to be passed in
         :return: Whether successful
         """
-        assert isinstance(xpath, str) and isinstance(keyword, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         try:
@@ -51,6 +53,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def sendEnter(driver: WebDriver, xpath: str) -> bool:
         """
         Press the enter key once
@@ -58,7 +61,6 @@ class Action:
         :param xpath: The xpath path of the input box
         :return: Whether successful
         """
-        assert isinstance(xpath, str)
         WebDriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, xpath)))
         element = driver.find_element(By.XPATH, xpath)
         try:
@@ -68,6 +70,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def switchLastTab(driver: WebDriver) -> bool:
         """
         Switch to the last handle
@@ -84,6 +87,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def switchTab(driver: WebDriver, index: int) -> bool:
         """
         Switch to the index handle
@@ -91,7 +95,6 @@ class Action:
         :param index: The index handle
         :return: Whether successful
         """
-        assert isinstance(index, int)
         try:
             window_handles = driver.window_handles
             driver.switch_to.window(window_handles[index])
@@ -100,6 +103,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def searchRedirect(driver: WebDriver, url: str, keyword: str) -> bool:
         """
         Replace % s in the path with keyword and redirect it
@@ -108,7 +112,6 @@ class Action:
         :param keyword: keyword needs to be passed in
         :return: Whether successful
         """
-        assert isinstance(url, str) and isinstance(keyword, str)
         try:
             url = url.replace(r"%s", keyword)
             driver.get(url)
@@ -117,6 +120,7 @@ class Action:
         return True
 
     @staticmethod
+    @check(exclude="driver")
     def redirect(driver: WebDriver, url: str) -> bool:
         """
         Direct redirection
@@ -124,7 +128,6 @@ class Action:
         :param url: Links that require redirection
         :return: Whether successful
         """
-        assert isinstance(url, str)
         try:
             driver.get(url)
         except Exception:

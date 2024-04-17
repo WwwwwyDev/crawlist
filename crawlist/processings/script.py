@@ -1,8 +1,8 @@
 import random
 import time
-
 from selenium.webdriver.remote.webdriver import WebDriver
 
+from crawlist.annotation import check, ParamsTypeError
 from crawlist.processings.action import Action
 import json
 import copy
@@ -20,13 +20,13 @@ class ScriptError(Exception):
 class Script:
     ACTIONS = Action.__dict__
 
+    @check
     def __init__(self, script: dict | str, interval: float = 0.5):
         """
         Script Parser
         :param script: Need a JSON str or dict that conforms to syntax conventions
         :param interval: The direct interval between two consecutive scripts
         """
-        assert isinstance(script, dict) or isinstance(script, str)
         if isinstance(script, str):
             self.script = json.loads(script)
         else:
@@ -34,6 +34,7 @@ class Script:
         self.check_script()
         self.interval = interval
 
+    @check
     def process(self, webdriver: WebDriver) -> bool:
         """
         process the script
@@ -73,7 +74,7 @@ class Script:
             temp["driver"] = None
             try:
                 Script.ACTIONS[method](**temp)
-            except TypeError or AssertionError as e:
+            except TypeError or AssertionError or ParamsTypeError as e:
                 doc: str = Script.ACTIONS[method].__doc__
                 info = "----------------------method info--------------------------"
                 params = "\ndef " + method + " " + signature(Script.ACTIONS[method]).__str__()
