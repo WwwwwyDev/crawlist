@@ -2,7 +2,7 @@ import random
 import time
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from crawlist.annotation import check, ParamsTypeError
+from crawlist.annotation import check, ParamTypeError
 from crawlist.processings.action import Action
 import json
 import copy
@@ -74,7 +74,7 @@ class Script:
             temp["driver"] = None
             try:
                 Script.ACTIONS[method](**temp)
-            except TypeError or AssertionError or ParamsTypeError as e:
+            except TypeError or AssertionError or ParamTypeError as e:
                 doc: str = Script.ACTIONS[method].__doc__
                 info = "----------------------method info--------------------------"
                 params = "\ndef " + method + " " + signature(Script.ACTIONS[method]).__str__()

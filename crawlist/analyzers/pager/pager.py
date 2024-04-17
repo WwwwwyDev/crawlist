@@ -1,6 +1,8 @@
 import random
 import time
 
+from crawlist.annotation import check
+
 
 class BasePager(object):
     pass
@@ -8,6 +10,7 @@ class BasePager(object):
 
 class Pager(BasePager):
 
+    @check
     def __init__(self, interval: float = 0.1):
         """
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage

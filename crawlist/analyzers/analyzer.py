@@ -5,6 +5,7 @@ from typing import Any, Generator
 from crawlist.analyzers.pager.pager import Pager
 from crawlist.analyzers.selector import Selector
 from crawlist.analyzers.trie import Trie
+from crawlist.annotation import check
 
 
 class BaseAnalyzer(object):
@@ -12,6 +13,7 @@ class BaseAnalyzer(object):
     Analyzer interface, requires subclass method implementation
     """
 
+    @check
     def list(self, limit: int) -> Generator[Any, Any, None]:
         """
         List generator interface, generating one data at a time
@@ -21,6 +23,7 @@ class BaseAnalyzer(object):
         for element in self.crawl(limit=limit):
             yield self.after(element)
 
+    @check
     def __call__(self, limit: int) -> Generator[Any, Any, None]:
         return self.list(limit=limit)
 

@@ -5,7 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as Ec
 from selenium.webdriver.common.by import By
 
-from .valid import Valid
+from crawlist.analyzers.valid import Valid
+from crawlist.annotation import check
 
 
 class BaseSelector(object):
@@ -13,6 +14,7 @@ class BaseSelector(object):
 
 
 class Selector(BaseSelector):
+    @check
     def __init__(self, pattern: str) -> None:
         """
         Selector
@@ -24,7 +26,7 @@ class Selector(BaseSelector):
     def select(self, html: str) -> list[str]:
         raise NotImplementedError
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return True
 
     def __call__(self, html: str) -> list[str]:
@@ -32,6 +34,7 @@ class Selector(BaseSelector):
 
 
 class WebElementSelector(BaseSelector):
+    @check
     def __init__(self, pattern: str) -> None:
         """
         WebElement selector (selenium)
@@ -43,7 +46,7 @@ class WebElementSelector(BaseSelector):
     def select(self, webdriver: WebDriver, interval: float = 0.1) -> list[WebElement]:
         raise NotImplementedError
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         raise NotImplementedError
 
     def __call__(self, webdriver: WebDriver, interval: float = 0.1) -> list[WebElement]:
@@ -58,7 +61,7 @@ class CssSelector(Selector):
     def select(self, html: str) -> list[str]:
         return parsel.Selector(text=html).css(self.pattern).getall()
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return Valid.is_valid_css(pattern)
 
 
@@ -70,7 +73,7 @@ class XpathSelector(Selector):
     def select(self, html: str) -> list[str]:
         return parsel.Selector(text=html).xpath(self.pattern).getall()
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return Valid.is_valid_xpath(pattern)
 
 
@@ -82,7 +85,7 @@ class RegexSelector(Selector):
     def select(self, html: str) -> list[str]:
         return parsel.Selector(text=html).re(self.pattern)
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return Valid.is_valid_regex(pattern)
 
 
@@ -94,7 +97,7 @@ class CssWebElementSelector(WebElementSelector):
         return webdriver.find_elements(
             By.CSS_SELECTOR, self.pattern)
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return Valid.is_valid_css(pattern)
 
 
@@ -106,7 +109,7 @@ class XpathWebElementSelector(WebElementSelector):
         return webdriver.find_elements(
             By.XPATH, self.pattern)
 
-    def valid(self, pattern) -> bool:
+    def valid(self, pattern: str) -> bool:
         return Valid.is_valid_xpath(pattern)
 
 

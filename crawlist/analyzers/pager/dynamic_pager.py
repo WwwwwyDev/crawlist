@@ -6,9 +6,11 @@ from crawlist.analyzers.pager.pager import Pager
 from crawlist.analyzers.driver import Driver, DefaultDriver
 from crawlist.analyzers.valid import Valid
 from crawlist.analyzers.selector import WebElementSelector
+from crawlist.annotation import check
 
 
 class DynamicPager(Pager):
+    @check
     def __init__(self, webdriver: Driver = None, interval: float = 0.1) -> None:
         """
         :param webdriver: WebDriver object for selenium
@@ -45,6 +47,7 @@ class DynamicPager(Pager):
 
 
 class DynamicRedirectPager(DynamicPager):
+    @check
     def __init__(self, uri: str, uri_split: str, webdriver: Driver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
@@ -79,6 +82,7 @@ class DynamicRedirectPager(DynamicPager):
 
 
 class DynamicListRedirectPager(DynamicPager):
+    @check
     def __init__(self, uris: list, webdriver: Driver = None, interval: float = 0.1) -> None:
         """
         Based on dynamic web page analyzer (redirect page flipping)
@@ -86,7 +90,6 @@ class DynamicListRedirectPager(DynamicPager):
         :param webdriver: WebDriver object for selenium
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-        assert isinstance(uris, list)
         for uri in uris:
             assert Valid.is_valid_url(uri)
         assert len(uris) > 0
@@ -112,6 +115,7 @@ class DynamicListRedirectPager(DynamicPager):
 
 
 class DynamicScrollPager(DynamicPager):
+    @check
     def __init__(self, uri: str, webdriver: Driver = None, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (scrolling and flipping)
@@ -144,6 +148,7 @@ class DynamicScrollPager(DynamicPager):
 
 
 class DynamicLineButtonPager(DynamicPager):
+    @check
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None,
                  interval: float = 1) -> None:
         """
@@ -173,6 +178,7 @@ class DynamicLineButtonPager(DynamicPager):
 
 
 class DynamicNumButtonPager(DynamicPager):
+    @check
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
@@ -249,6 +255,7 @@ class DynamicNumButtonPager(DynamicPager):
 
 
 class DynamicNextButtonPager(DynamicPager):
+    @check
     def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """

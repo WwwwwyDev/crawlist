@@ -1,9 +1,11 @@
 from crawlist.analyzers.pager.pager import Pager
 from crawlist.analyzers.request import Request, DefaultRequest
 from crawlist.analyzers.valid import Valid
+from crawlist.annotation import check
 
 
 class StaticPager(Pager):
+    @check
     def __init__(self, request: Request = None, interval: float = 0.1):
         """
         :param request: Request object
@@ -17,6 +19,7 @@ class StaticPager(Pager):
 
 
 class StaticRedirectPager(StaticPager):
+    @check
     def __init__(self, uri: str, uri_split: str, request: Request = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
@@ -48,6 +51,7 @@ class StaticRedirectPager(StaticPager):
 
 
 class StaticListRedirectPager(StaticPager):
+    @check
     def __init__(self, uris: list, request: Request = None, interval: float = 0.1) -> None:
         """
         Based on static web page analyzer (redirect page flipping)

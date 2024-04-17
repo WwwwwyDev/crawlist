@@ -1,7 +1,7 @@
 from inspect import signature
 
 
-class ParamsTypeError(Exception):
+class ParamTypeError(Exception):
     def __init__(self, message):
         self.message = message
 
@@ -31,23 +31,27 @@ def check(exclude: list | str):
             for name, type_ in signature(func).parameters.items():
                 if name in kwargs:
                     break
-                if index >= len(args) and type_.default:
-                    args_dict[name] = type_.default
-                    continue
+                if index >= len(args):
+                    break
                 args_dict[name] = args[index]
                 index += 1
+            for name, type_ in signature(func).parameters.items():
+                if type_.default != type_.empty and name not in kwargs:
+                    args_dict[name] = type_.default
             all_kwargs = {**args_dict, **kwargs}
             for name, type_ in signature(func).parameters.items():
                 if not callable(exclude) and name in exclude:
                     continue
                 if name == "self":
                     continue
+                if type_.annotation == type_.empty:
+                    raise ParamTypeError(f"Parameter {name} must be indicated the type.")
+                if all_kwargs[name] is None and type_.default is not type_.empty:
+                    continue
                 if isinstance(all_kwargs[name], int) and type_.annotation is float:
                     all_kwargs[name] = float(all_kwargs.get(name))
-                if isinstance(all_kwargs[name], float) and type_.annotation is int:
-                    all_kwargs[name] = int(all_kwargs.get(name))
                 if not isinstance(all_kwargs[name], type_.annotation):
-                    raise ParamsTypeError(f"Parameter {name} must be {type_.annotation}.")
+                    raise ParamTypeError(f"Parameter {name} must be {type_.annotation}.")
             return func(*args, **kwargs)
 
         return inner_wrapper
