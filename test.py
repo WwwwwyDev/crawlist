@@ -128,12 +128,11 @@ class TestCase(unittest.TestCase):
 
     def test_09(self):
         class MyPager(cl.DynamicLineButtonPager):
-            def pre_load(self, webdriver: WebDriver) -> bool:
+            def pre_load(self, webdriver: WebDriver) -> None:
                 webdriver.get("https://kuaixun.eastmoney.com/")
                 script = {"method": "click",
                           "xpath": "/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]"}
                 cl.Script(script)(webdriver)
-                return True
 
         pager = MyPager(uri="https://kuaixun.eastmoney.com/",
                         button_selector=cl.CssWebElementSelector('#news_list > div.load_more'))
@@ -151,12 +150,11 @@ class TestCase(unittest.TestCase):
         uri = "https://tieba.baidu.com/f?kw=%E8%B4%B4%E5%90%A7&ie=utf-8&pn=0"
 
         class MyPager(cl.DynamicNumButtonPager):
-            def pre_load(self, webdriver: WebDriver) -> bool:
+            def pre_load(self, webdriver: WebDriver) -> None:
                 webdriver.get(uri)
                 script = {"method": "click",
                           "xpath": '//*[@id="tiebaCustomPassLogin"]/div[2]/span'}
                 cl.Script(script)(webdriver)
-                return True
 
         pager = MyPager(uri=uri,
                         button_selector=button_selector)
@@ -241,7 +239,7 @@ class TestCase(unittest.TestCase):
         baidu_uri = "https://www.baidu.com/"
 
         class MyPager(cl.DynamicNumButtonPager):
-            def pre_load(self, webdriver: WebDriver) -> bool:
+            def pre_load(self, webdriver: WebDriver) -> None:
                 webdriver.get(baidu_uri)
                 script = {
                     "method": "inputKeyword",
@@ -253,7 +251,6 @@ class TestCase(unittest.TestCase):
                     }
                 }
                 cl.Script(script)(webdriver)
-                return True
 
         pager = MyPager(uri=baidu_uri,
                         button_selector=cl.XpathWebElementSelector('//*[@id="page"]/div/a/span'),
@@ -266,6 +263,7 @@ class TestCase(unittest.TestCase):
             res.append(tr)
         print(len(res))
         pager.webdriver.quit()
+
 
 if __name__ == '__main__':
     unittest.main()
