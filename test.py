@@ -131,7 +131,7 @@ class TestCase(unittest.TestCase):
             def pre_load(self, webdriver: WebDriver) -> bool:
                 webdriver.get("https://kuaixun.eastmoney.com/")
                 script = {"method": "click",
-                          "xpath":  "/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]"}
+                          "xpath": "/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]"}
                 cl.Script(script)(webdriver)
                 return True
 
@@ -227,7 +227,6 @@ class TestCase(unittest.TestCase):
         pager.webdriver.quit()
 
     def test_13(self):
-
         pager = cl.DynamicScrollPager(uri="https://www.qtvnews.com/lanjing/qd/view/listData.html?id=10390", interval=3)
         selector = cl.CssSelector(pattern='#datalist > dl')
         analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
@@ -238,6 +237,35 @@ class TestCase(unittest.TestCase):
         print(len(res))
         pager.webdriver.quit()
 
+    def test_14(self):
+        baidu_uri = "https://www.baidu.com/"
+
+        class MyPager(cl.DynamicNumButtonPager):
+            def pre_load(self, webdriver: WebDriver) -> bool:
+                webdriver.get(baidu_uri)
+                script = {
+                    "method": "inputKeyword",
+                    "xpath": '//*[@id="kw"]',
+                    "keyword": "和泉雾纱",
+                    "next": {
+                        "method": "click",
+                        "xpath": '//*[@id="su"]',
+                    }
+                }
+                cl.Script(script)(webdriver)
+                return True
+
+        pager = MyPager(uri=baidu_uri,
+                        button_selector=cl.XpathWebElementSelector('//*[@id="page"]/div/a/span'),
+                        webdriver=cl.DefaultDriver(isDebug=True), interval=5)
+        selector = cl.XpathSelector(pattern='/html/body/div[3]/div[3]/div[1]/div[3]/div')
+        analyzer = cl.AnalyzerPrettify(pager, selector)
+        res = []
+        for tr in analyzer(TestCase.limit):
+            print(tr)
+            res.append(tr)
+        print(len(res))
+        pager.webdriver.quit()
 
 if __name__ == '__main__':
     unittest.main()
