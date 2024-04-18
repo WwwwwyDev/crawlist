@@ -180,10 +180,9 @@ import crawlist as cl
 
 if __name__ == '__main__':
     class MyPager(cl.DynamicLineButtonPager):
-        def pre_load(self, webdriver: WebDriver = None) -> bool:
+        def pre_load(self, webdriver: WebDriver = None) -> None:
             webdriver.get("https://kuaixun.eastmoney.com/")
             cl.Action.click(webdriver, '/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]')
-            return True
         
     pager = MyPager(uri="https://kuaixun.eastmoney.com/",
                                       button_selector=cl.CssWebElementSelector('#news_list > div.load_more'))
@@ -200,6 +199,7 @@ if __name__ == '__main__':
 
 ```python
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 
 import crawlist as cl
 
@@ -209,10 +209,11 @@ if __name__ == '__main__':
 
 
     class MyPager(cl.DynamicNumButtonPager):
-        def pre_load(self, webdriver: WebDriver = None) -> bool:
+        def pre_load(self, webdriver: WebDriver = None) -> None:
             webdriver.get(uri)
-            cl.Action.click(webdriver, '//*[@id="tiebaCustomPassLogin"]/div[2]/span')
-
+            #  You also could use the selenium methods.
+            element = webdriver.find_element(By.XPATH, xpath)
+            element.click()
 
     pager = MyPager(uri=uri,
                     button_selector=button_selector)
@@ -220,6 +221,40 @@ if __name__ == '__main__':
     analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
     res = []
     for tr in analyzer(100):
+        print(tr)
+        res.append(tr)
+    print(len(res))
+    pager.webdriver.quit()
+```
+
+### Pre-loading with scripts
+
+```python
+from selenium.webdriver.remote.webdriver import WebDriver
+import crawlist as cl
+
+if __name__ == '__main__':
+    class MyPager(cl.DynamicNumButtonPager):
+        def pre_load(self, webdriver: WebDriver) -> None:
+            webdriver.get(baidu_uri)
+            script = {
+                "method": "inputKeyword",
+                "xpath": '//*[@id="kw"]',
+                "keyword": "和泉雾纱",
+                "next": {
+                    "method": "click",
+                    "xpath": '//*[@id="su"]',
+                }
+            }  # You could save the script as Json on your physical storage
+            cl.Script(script)(webdriver)
+
+    pager = MyPager(uri=baidu_uri,
+                    button_selector=cl.XpathWebElementSelector('//*[@id="page"]/div/a/span'),
+                    webdriver=cl.DefaultDriver(isDebug=True), interval=5)
+    selector = cl.XpathSelector(pattern='/html/body/div[3]/div[3]/div[1]/div[3]/div')
+    analyzer = cl.AnalyzerPrettify(pager, selector)
+    res = []
+    for tr in analyzer(TestCase.limit):
         print(tr)
         res.append(tr)
     print(len(res))
@@ -274,23 +309,29 @@ from selenium import webdriver as wd
 from selenium.webdriver.chrome.service import Service
 
 if __name__ == '__main__':
-    
-    option = wd.ChromeOptions()
-    option.add_argument("start-maximized")
-    option.add_argument("--headless")
-    option.add_argument("window-size=1920x3000")
-    agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
-    option.add_argument(agent)
-    my_webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
-    
-    pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=my_webdriver)
+    class MyDriver(cl.Driver):
+        def __init__(self):
+            pass
+
+        def get_driver(self) -> WebDriver:
+            option = wd.ChromeOptions()
+            option.add_argument("start-maximized")
+            option.add_argument("--headless")
+            option.add_argument("window-size=1920x3000")
+            agent = 'user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"'
+            option.add_argument(agent)
+            my_webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
+            return my_webdriver
+
+    pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=MyDriver())
     selector = cl.CssSelector(pattern="#ec > div.content > section > div.whitecon.boxTitle.boxText > ul > li")
     analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
     res = []
-    for tr in analyzer(100):
+    for tr in analyzer(TestCase.limit):
         print(tr)
         res.append(tr)
     print(len(res))
     pager.webdriver.quit()
 
 ```
+
