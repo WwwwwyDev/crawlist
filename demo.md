@@ -236,15 +236,18 @@ import crawlist as cl
 if __name__ == '__main__':
     class MyPager(cl.DynamicNumButtonPager):
         def pre_load(self, webdriver: WebDriver) -> None:
-            webdriver.get(baidu_uri)
             script = {
-                "method": "inputKeyword",
-                "xpath": '//*[@id="kw"]',
-                "keyword": "和泉雾纱",
+                "method": "redirect",
+                "url": "https://www.baidu.com/",
                 "next": {
-                    "method": "click",
-                    "xpath": '//*[@id="su"]',
-                }
+                    "method": "inputKeyword",
+                    "xpath": '//*[@id="kw"]',
+                    "keyword": "和泉雾纱",
+                    "next": {
+                        "method": "click",
+                        "xpath": '//*[@id="su"]',
+                    }
+                },
             }  # You could save the script as Json on your physical storage
             cl.Script(script)(webdriver)
 
