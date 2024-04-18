@@ -5,7 +5,7 @@ description: >-
   that you can adjust them faster.
 ---
 
-# 👾 script
+# 👾 Script
 
 ### Script Definition
 
@@ -47,4 +47,26 @@ cl.Script.ACTIONS = MyAction.__dict__
 }
 </code></pre>
 
+### Use the script
+
 It is more recommended that you use scripts for [pre\_load](action.md#what-is-pre\_load).
+
+<pre class="language-python"><code class="lang-python"><strong>import crawlist as cl
+</strong><strong>
+</strong><strong>class MyPager(cl.DynamicNumButtonPager):
+</strong>    def pre_load(self, webdriver: WebDriver) -> None:
+        script = {
+            "method": "redirect",
+            "url": "https://www.baidu.com/",
+            "next": {
+                "method": "inputKeyword",
+                "xpath": "//*[@id=\"kw\"]",
+                "keyword": "和泉雾纱",
+                "next": {
+                    "method": "click",
+                    "xpath": "//*[@id=\"su\"]"
+                }
+            }
+        }
+        cl.Script(script)(webdriver)
+</code></pre>
