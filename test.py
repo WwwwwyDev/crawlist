@@ -1,5 +1,7 @@
-import time
 import unittest
+
+from selenium.webdriver.common.by import By
+
 import crawlist as cl
 from selenium.webdriver.remote.webdriver import WebDriver
 import requests
@@ -130,9 +132,8 @@ class TestCase(unittest.TestCase):
         class MyPager(cl.DynamicLineButtonPager):
             def pre_load(self, webdriver: WebDriver) -> None:
                 webdriver.get("https://kuaixun.eastmoney.com/")
-                script = {"method": "click",
-                          "xpath": "/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]"}
-                cl.Script(script)(webdriver)
+                cl.Action.click(webdriver,
+                                '/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]')
 
         pager = MyPager(uri="https://kuaixun.eastmoney.com/",
                         button_selector=cl.CssWebElementSelector('#news_list > div.load_more'))
@@ -152,9 +153,9 @@ class TestCase(unittest.TestCase):
         class MyPager(cl.DynamicNumButtonPager):
             def pre_load(self, webdriver: WebDriver) -> None:
                 webdriver.get(uri)
-                script = {"method": "click",
-                          "xpath": '//*[@id="tiebaCustomPassLogin"]/div[2]/span'}
-                cl.Script(script)(webdriver)
+                #  You also could use the selenium methods.
+                element = webdriver.find_element(By.XPATH, '//*[@id="tiebaCustomPassLogin"]/div[2]/span')
+                element.click()
 
         pager = MyPager(uri=uri,
                         button_selector=button_selector)
@@ -236,23 +237,25 @@ class TestCase(unittest.TestCase):
         pager.webdriver.quit()
 
     def test_14(self):
-        baidu_uri = "https://www.baidu.com/"
 
         class MyPager(cl.DynamicNumButtonPager):
             def pre_load(self, webdriver: WebDriver) -> None:
-                webdriver.get(baidu_uri)
                 script = {
-                    "method": "inputKeyword",
-                    "xpath": '//*[@id="kw"]',
-                    "keyword": "和泉雾纱",
+                    "method": "redirect",
+                    "url": "https://www.baidu.com/",
                     "next": {
-                        "method": "click",
-                        "xpath": '//*[@id="su"]',
+                        "method": "inputKeyword",
+                        "xpath": "//*[@id=\"kw\"]",
+                        "keyword": "和泉雾纱",
+                        "next": {
+                            "method": "click",
+                            "xpath": "//*[@id=\"su\"]"
+                        }
                     }
                 }
                 cl.Script(script)(webdriver)
 
-        pager = MyPager(uri=baidu_uri,
+        pager = MyPager(uri="https://www.baidu.com/",
                         button_selector=cl.XpathWebElementSelector('//*[@id="page"]/div/a/span'),
                         webdriver=cl.DefaultDriver(isDebug=True), interval=5)
         selector = cl.XpathSelector(pattern='/html/body/div[3]/div[3]/div[1]/div[3]/div')
