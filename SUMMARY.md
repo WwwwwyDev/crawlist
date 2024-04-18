@@ -8,5 +8,6 @@
   * [👾 Implement your own pager](pager/implement-your-own-pager.md)
 * [👾 analyzer](analyzer.md)
 * [👾 action](action.md)
+* [👾 script](script.md)
 * [👾 demo](demo.md)
 * [github](https://github.com/WwwwwyDev/crawlist)

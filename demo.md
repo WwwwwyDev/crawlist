@@ -182,7 +182,8 @@ if __name__ == '__main__':
     class MyPager(cl.DynamicLineButtonPager):
         def pre_load(self, webdriver: WebDriver = None) -> None:
             webdriver.get("https://kuaixun.eastmoney.com/")
-            cl.Action.click(webdriver, '/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]')
+            cl.Action.click(webdriver,
+                                '/html/body/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/label/span[1]')
         
     pager = MyPager(uri="https://kuaixun.eastmoney.com/",
                                       button_selector=cl.CssWebElementSelector('#news_list > div.load_more'))
@@ -212,7 +213,7 @@ if __name__ == '__main__':
         def pre_load(self, webdriver: WebDriver = None) -> None:
             webdriver.get(uri)
             #  You also could use the selenium methods.
-            element = webdriver.find_element(By.XPATH, xpath)
+            element = webdriver.find_element(By.XPATH, '//*[@id="tiebaCustomPassLogin"]/div[2]/span')
             element.click()
 
     pager = MyPager(uri=uri,
@@ -241,13 +242,13 @@ if __name__ == '__main__':
                 "url": "https://www.baidu.com/",
                 "next": {
                     "method": "inputKeyword",
-                    "xpath": '//*[@id="kw"]',
+                    "xpath": "//*[@id=\"kw\"]",
                     "keyword": "和泉雾纱",
                     "next": {
                         "method": "click",
-                        "xpath": '//*[@id="su"]',
+                        "xpath": "//*[@id=\"su\"]"
                     }
-                },
+                }
             }  # You could save the script as Json on your physical storage
             cl.Script(script)(webdriver)
 
