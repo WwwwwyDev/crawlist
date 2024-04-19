@@ -16,7 +16,7 @@ A universal solution for web crawling lists
   <a href="https://pypi.python.org/pypi/crawlist">
     <img src="https://img.shields.io/pypi/v/crawlist" alt="pypi">
   </a>
-  <img src="https://img.shields.io/badge/python-3.8.0+-blue" alt="python">
+  <img src="https://img.shields.io/badge/python-3.10.0+-blue" alt="python">
   <a href="https://github.com/WwwwwyDev/crawlist/stargazers"><img src="https://img.shields.io/github/stars/WwwwwyDev/crawlist" alt="GitHub stars"style="max-width: 100%;">
   </a>
   <br/>
