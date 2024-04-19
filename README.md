@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
 ## Documenting
 If you are interested and would like to see more detailed documentation, please click on the picture below.\
- <a href="https://wwydev.gitbook.io/crawlist/"><img src="https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png" alt="crawlist" style="width:220px; height:100px" ></a>
+ <a href="https://wwydev.gitbook.io/crawlist/"><img src="https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png" alt="crawlist" style="width:287px; height:123px" ></a>
 
 ## Contributing
 Please submit pull requests to the develop branch
