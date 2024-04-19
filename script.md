@@ -31,22 +31,6 @@ The script is a JSON. JSON can be parsed in most languages, making it more versa
 
 Method and its parameters correspond to all [action ](action.md#parms-of-action)method names and their parameters
 
-### Define your own script
-
-<pre class="language-python"><code class="lang-python">class MyAction(cl.Action):
-    @staticmethod
-    @cl.annotation.check(exclude="driver")
-    def myMethod(driver: WebDriver, myparm: str):
-        pass
-print(MyAction.__dict__)
-cl.Script.ACTIONS = MyAction.__dict__
-# then the parser can parse your script
-<strong>script = {
-</strong>    "method": "myMethod",
-    "myparm": "",
-}
-</code></pre>
-
 ### Use the script
 
 It is more recommended that you use scripts for [pre\_load](action.md#what-is-pre\_load).
