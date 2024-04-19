@@ -21,7 +21,7 @@ layout:
 
 A universal solution for web crawling lists
 
-[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="line"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.8.0+-blue" alt="python" data-size="line">
+[<img src="https://img.shields.io/pypi/v/crawlist" alt="pypi" data-size="line"> ](https://pypi.python.org/pypi/crawlist)<img src="https://img.shields.io/badge/python-3.10.0+-blue" alt="python" data-size="line">
 
 {% embed url="https://github.com/WwwwwyDev/crawlist" %}
 
