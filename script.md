@@ -36,8 +36,8 @@ Method and its parameters correspond to all [action ](action.md#parms-of-action)
 It is more recommended that you use scripts for [pre\_load](action.md#what-is-pre\_load).
 
 <pre class="language-python"><code class="lang-python"><strong>import crawlist as cl
-</strong><strong>
-</strong><strong>class MyPager(cl.DynamicNumButtonPager):
+</strong>
+<strong>class MyPager(cl.DynamicNumButtonPager):
 </strong>    def pre_load(self, webdriver: WebDriver) -> None:
         script = {
             "method": "redirect",
@@ -54,3 +54,15 @@ It is more recommended that you use scripts for [pre\_load](action.md#what-is-pr
         }
         cl.Script(script)(webdriver)
 </code></pre>
+
+### crawlipt
+
+If you want a richer script, you can use the crawlipt project
+
+```sh
+pip install crawlipt
+```
+
+{% embed url="https://github.com/WwwwwyDev/crawlipt" %}
+
+{% embed url="https://wwydev.gitbook.io/crawlipt" %}
