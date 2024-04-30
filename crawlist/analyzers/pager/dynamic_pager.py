@@ -1,4 +1,5 @@
 import parsel
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -11,7 +12,7 @@ from crawlist.annotation import check
 
 class DynamicPager(Pager):
     @check
-    def __init__(self, webdriver: Driver = None, interval: float = 0.1) -> None:
+    def __init__(self, webdriver: Driver | WebDriver = None, interval: float = 0.1) -> None:
         """
         :param webdriver: WebDriver object for selenium
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
@@ -19,7 +20,10 @@ class DynamicPager(Pager):
         if not webdriver:
             self.webdriver = DefaultDriver()()
         else:
-            self.webdriver = webdriver()
+            if isinstance(webdriver, WebDriver):
+                self.webdriver = webdriver
+            else:
+                self.webdriver = webdriver()
         super().__init__(interval=interval)
 
     def click_safety(self, button: WebElement) -> None:
@@ -48,7 +52,7 @@ class DynamicPager(Pager):
 
 class DynamicRedirectPager(DynamicPager):
     @check
-    def __init__(self, uri: str, uri_split: str, webdriver: Driver = None, start: int = 1, offset: int = 1,
+    def __init__(self, uri: str, uri_split: str, webdriver: Driver | WebDriver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
         Based on dynamic web page analyzer (redirect page flipping)
@@ -83,7 +87,7 @@ class DynamicRedirectPager(DynamicPager):
 
 class DynamicListRedirectPager(DynamicPager):
     @check
-    def __init__(self, uris: list, webdriver: Driver = None, interval: float = 0.1) -> None:
+    def __init__(self, uris: list, webdriver: Driver | WebDriver = None, interval: float = 0.1) -> None:
         """
         Based on dynamic web page analyzer (redirect page flipping)
         :param uris: A list containing multiple uris, executed in order downwards
@@ -116,7 +120,7 @@ class DynamicListRedirectPager(DynamicPager):
 
 class DynamicScrollPager(DynamicPager):
     @check
-    def __init__(self, uri: str, webdriver: Driver = None, interval: float = 1) -> None:
+    def __init__(self, uri: str, webdriver: Driver | WebDriver = None, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (scrolling and flipping)
         :param uri: webpage link, which is a scrolling page
@@ -140,6 +144,13 @@ class DynamicScrollPager(DynamicPager):
     def next(self) -> None:
         self.webdriver.execute_script(DynamicScrollPager.js_code)
         self.sleep()
+        actions = ActionChains(self.webdriver)
+        actions.move_by_offset(0, 0).click().perform()
+        self.sleep()
+        for _ in range(5):
+            actions.send_keys(Keys.SPACE).perform()
+            self.sleep()
+        self.sleep()
 
     @property
     def html(self) -> str:
@@ -151,7 +162,7 @@ class DynamicScrollPager(DynamicPager):
 
 class DynamicLineButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None,
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None,
                  interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (row button page flipping)
@@ -183,7 +194,7 @@ class DynamicLineButtonPager(DynamicPager):
 
 class DynamicNumButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None, start: int = 1,
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (digital button flipping)
@@ -262,7 +273,7 @@ class DynamicNumButtonPager(DynamicPager):
 
 class DynamicNextButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver = None, start: int = 1,
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (click the next page button to page)
