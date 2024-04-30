@@ -328,6 +328,7 @@ if __name__ == '__main__':
             return my_webdriver
 
     pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=MyDriver())
+    # pager = cl.DynamicScrollPager(uri="https://ec.ltn.com.tw/list/international", webdriver=MyDriver().get_driver())
     selector = cl.CssSelector(pattern="#ec > div.content > section > div.whitecon.boxTitle.boxText > ul > li")
     analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
     res = []
