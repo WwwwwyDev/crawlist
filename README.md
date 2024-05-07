@@ -32,8 +32,13 @@ Of course, in the face of some special websites that cannot be crawled, you can 
 
 ### installing
 
-You can use pip or pip3 to install the crawlist\
+You can use pip or pip3 to install the crawlist
+
 `pip install crawlist` or `pip3 install crawlist`
+
+If you have already installed crawlist, you may need to update to the latest version
+
+`pip install --upgrade crawlist`
 
 ### quickly start
 
