@@ -17,7 +17,9 @@ class DynamicPager(Pager):
         :param webdriver: WebDriver object for selenium
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
+        self.default_driver_flag = False
         if not webdriver:
+            self.default_driver_flag = True
             self.webdriver = DefaultDriver()()
         else:
             if isinstance(webdriver, WebDriver):
@@ -44,10 +46,11 @@ class DynamicPager(Pager):
         pass
 
     def __del__(self):
-        try:
-            self.webdriver.quit()
-        except:
-            pass
+        if self.default_driver_flag:
+            try:
+                self.webdriver.quit()
+            except:
+                pass
 
 
 class DynamicRedirectPager(DynamicPager):

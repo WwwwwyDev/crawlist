@@ -29,7 +29,7 @@ class DefaultDriver(Driver):
         add_default_chrome_options(option)
         if not self.is_debug:
             option.add_argument("--headless")
-        if not self.is_eager:
+        if self.is_eager:
             option.page_load_strategy = 'eager'
         option.add_experimental_option('excludeSwitches', ['enable-automation'])
         webdriver = wd.Chrome(service=Service(ChromeDriverManager().install()), options=option)
@@ -53,7 +53,7 @@ class DefaultRemoteDriver(Driver):
         option = wd.ChromeOptions()
         add_default_chrome_options(option)
         option.add_argument("--headless")
-        if not self.is_eager:
+        if self.is_eager:
             option.page_load_strategy = 'eager'
         option.set_capability('cloud:options', DesiredCapabilities.CHROME)
         option.add_experimental_option('excludeSwitches', ['enable-automation'])
