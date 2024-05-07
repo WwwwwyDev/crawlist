@@ -43,12 +43,6 @@ class DynamicPager(Pager):
     def pre_load(self, webdriver: WebDriver) -> None:
         pass
 
-    def __del__(self):
-        try:
-            self.webdriver.quit()
-        except:
-            pass
-
 
 class DynamicRedirectPager(DynamicPager):
     @check
@@ -194,7 +188,8 @@ class DynamicLineButtonPager(DynamicPager):
 
 class DynamicNumButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None,
+                 start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (digital button flipping)
@@ -273,7 +268,8 @@ class DynamicNumButtonPager(DynamicPager):
 
 class DynamicNextButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
+    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None,
+                 start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (click the next page button to page)
