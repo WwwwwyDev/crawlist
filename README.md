@@ -29,8 +29,13 @@ A universal solution for web crawling lists
 You can use Crawlist to crawl websites containing lists, and with some simple configurations, you can obtain all the list data.Of course, in the face of some special websites that cannot be crawled, you can also customize the configuration of that website.
 
 ## installing
-You can use pip or pip3 to install the crawlist\
+You can use pip or pip3 to install the crawlist
+
 `pip install crawlist` or `pip3 install crawlist`
+
+If you have already installed crawlist, you may need to update to the latest version
+
+`pip install --upgrade crawlist`
 
 ## quickly start
 This is a static website demo. It does not use the JavaScript to load the data.
@@ -84,8 +89,9 @@ if __name__ == '__main__':
 ```
 
 ## Documenting
-If you are interested and would like to see more detailed documentation, please click on the picture below.\
- <a href="https://wwydev.gitbook.io/crawlist/"><img src="https://s2.loli.net/2024/04/12/5gOBimSY4oklGys.png" alt="crawlist" style="width:287px; height:123px" ></a>
+If you are interested and would like to see more detailed documentation, please click on the link below.
+
+[English](https://wwydev.gitbook.io/crawlist "English Document")
 
 ## Contributing
 Please submit pull requests to the develop branch
