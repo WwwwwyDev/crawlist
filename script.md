@@ -64,5 +64,3 @@ pip install crawlipt
 ```
 
 {% embed url="https://github.com/WwwwwyDev/crawlipt" %}
-
-{% embed url="https://wwydev.gitbook.io/crawlipt" %}
