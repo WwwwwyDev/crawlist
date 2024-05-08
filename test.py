@@ -118,8 +118,8 @@ class TestCase(unittest.TestCase):
 
     def test_06(self):
         button_selector = cl.CssWebElementSelector(pattern='#newslist > button')
-        pager = cl.DynamicLineButtonPager(uri="https://www.yicai.com/news/kechuang/",
-                                          button_selector=button_selector)
+        pager = cl.DynamicLineButtonPager(button_selector=button_selector)
+        pager.webdriver.get("https://www.yicai.com/news/kechuang/")
         selector = cl.XpathSelector(pattern='//*[@id="newslist"]/a')
         analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)
         res = []
@@ -144,8 +144,9 @@ class TestCase(unittest.TestCase):
 
     def test_08(self):
         button_selector = cl.CssWebElementSelector(pattern='#downpage')
-        pager = cl.DynamicNextButtonPager(uri="https://news.lnd.com.cn/xwyw/index.shtml",
+        pager = cl.DynamicNextButtonPager(
                                           button_selector=button_selector, start=2, offset=2)
+        pager.webdriver.get("https://news.lnd.com.cn/xwyw/index.shtml")
         selector = cl.CssSelector(
             pattern='body > div:nth-child(5) > div:nth-child(2) > div:nth-child(1) > div.main_more > span > ul > li')
         analyzer = cl.AnalyzerPrettify(pager=pager, selector=selector)

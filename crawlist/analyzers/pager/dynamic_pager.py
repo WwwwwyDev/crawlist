@@ -123,14 +123,15 @@ class DynamicListRedirectPager(DynamicPager):
 
 class DynamicScrollPager(DynamicPager):
     @check
-    def __init__(self, uri: str, webdriver: Driver | WebDriver = None, interval: float = 1) -> None:
+    def __init__(self, uri: str = "", webdriver: Driver | WebDriver = None, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (scrolling and flipping)
         :param uri: webpage link, which is a scrolling page
         :param webdriver: WebDriver object for selenium
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-        assert Valid.is_valid_url(uri)
+        if uri:
+            assert Valid.is_valid_url(uri)
         self.uri = uri
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
@@ -160,26 +161,29 @@ class DynamicScrollPager(DynamicPager):
         return self.webdriver.page_source
 
     def pre_load(self, webdriver: WebDriver) -> None:
-        webdriver.get(self.uri)
+        if self.uri:
+            webdriver.get(self.uri)
 
 
 class DynamicLineButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None,
+    def __init__(self, button_selector: WebElementSelector, uri: str = "", webdriver: Driver | WebDriver = None,
                  interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (row button page flipping)
-        :param uri: webpage link, which is a row button for flipping pages
         :param button.selector: row button selector
+        :param uri: webpage link, which is a row button for flipping pages
         :param webdriver: WebDriver object for selenium
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-        assert Valid.is_valid_url(uri)
+        if uri:
+            assert Valid.is_valid_url(uri)
         self.uri = uri
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
         self.sleep()
-        assert len(button_selector(self.webdriver, interval=interval)) > 0
+        if uri:
+            assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.button = button_selector
 
     def next(self) -> None:
@@ -192,36 +196,41 @@ class DynamicLineButtonPager(DynamicPager):
         return self.webdriver.page_source
 
     def pre_load(self, webdriver: WebDriver) -> None:
-        webdriver.get(self.uri)
+        if self.uri:
+            webdriver.get(self.uri)
 
 
 class DynamicNumButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
+    def __init__(self, button_selector: WebElementSelector, uri: str = "", webdriver: Driver | WebDriver = None,
+                 start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (digital button flipping)
-        :param uri: webpage link, which is a numeric button for flipping pages
         :param button.selector: numeric button selector
+        :param uri: webpage link, which is a numeric button for flipping pages
         :param webdriver: WebDriver object for selenium
         :param start: Start page
         :param offset: pagination interval
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-        assert Valid.is_valid_url(uri)
+        if uri:
+            assert Valid.is_valid_url(uri)
         self.uri = uri
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
         self.sleep()
-        assert len(button_selector(self.webdriver, interval=interval)) > 0
+        if uri:
+            assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.index = 1
         self.offset = offset
         self.button = button_selector
-        while start - 1:
-            start -= 1
-            self.next_one()
+        self.start = start
 
     def next(self) -> None:
+        while self.start - 1:
+            self.start -= 1
+            self.next_one()
         offset = self.offset
         while offset:
             self.next_one()
@@ -238,6 +247,9 @@ class DynamicNumButtonPager(DynamicPager):
 
     @property
     def html(self) -> str:
+        while self.start - 1:
+            self.start -= 1
+            self.next_one()
         return self.webdriver.page_source
 
     @staticmethod
@@ -271,35 +283,40 @@ class DynamicNumButtonPager(DynamicPager):
         return None
 
     def pre_load(self, webdriver: WebDriver) -> None:
-        webdriver.get(self.uri)
+        if self.uri:
+            webdriver.get(self.uri)
 
 
 class DynamicNextButtonPager(DynamicPager):
     @check
-    def __init__(self, uri: str, button_selector: WebElementSelector, webdriver: Driver | WebDriver = None, start: int = 1,
+    def __init__(self, button_selector: WebElementSelector, uri: str = "", webdriver: Driver | WebDriver = None,
+                 start: int = 1,
                  offset: int = 1, interval: float = 1) -> None:
         """
         Based on dynamic web page analyzer (click the next page button to page)
-        :param uri: Web page link, which is a page that can be flipped by clicking the next page button
         :param button.selector: Click on the next page button selector
+        :param uri: Web page link, which is a page that can be flipped by clicking the next page button
         :param webdriver: WebDriver object for selenium
         :param start: Start page
         :param offset: pagination interval
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
-        assert Valid.is_valid_url(uri)
+        if uri:
+            assert Valid.is_valid_url(uri)
         self.uri = uri
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
         self.sleep()
-        assert len(button_selector(self.webdriver, interval=interval)) > 0
+        if uri:
+            assert len(button_selector(self.webdriver, interval=interval)) > 0
         self.offset = offset
         self.button = button_selector
-        while start - 1:
-            start -= 1
-            self.next_one()
+        self.start = start
 
     def next(self) -> None:
+        while self.start - 1:
+            self.start -= 1
+            self.next_one()
         offset = self.offset
         while offset:
             self.next_one()
@@ -314,7 +331,11 @@ class DynamicNextButtonPager(DynamicPager):
 
     @property
     def html(self) -> str:
+        while self.start - 1:
+            self.start -= 1
+            self.next_one()
         return self.webdriver.page_source
 
     def pre_load(self, webdriver: WebDriver) -> None:
-        webdriver.get(self.uri)
+        if self.uri:
+            webdriver.get(self.uri)
