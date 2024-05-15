@@ -55,23 +55,28 @@ class DynamicPager(Pager):
 
 class DynamicRedirectPager(DynamicPager):
     @check
-    def __init__(self, uri: str, uri_split: str, webdriver: Driver | WebDriver = None, start: int = 1, offset: int = 1,
+    def __init__(self, uri_split: str, uri: str = "", webdriver: Driver | WebDriver = None, start: int = 1, offset: int = 1,
                  interval: float = 0.1) -> None:
         """
         Based on dynamic web page analyzer (redirect page flipping)
-        :param uri: First page link
         :param uri_split: Link pagination (using% v proxy) Example: https://www.boc.cn/sourcedb/whpj/index_%v.html
+        :param uri: If set, It will be the First page link.
         :param webdriver: WebDriver object for selenium
         :param start: Start page
         :param offset: pagination interval
         :param interval: Grab the list frequency and adjust it according to the actual situation of the webpage
         """
         assert '%v' in uri_split
-        assert Valid.is_valid_url(uri) and Valid.is_valid_url(uri_split.replace('%v', str(start)))
+        if uri:
+            assert Valid.is_valid_url(uri)
+        assert Valid.is_valid_url(uri_split.replace('%v', str(start)))
         assert offset >= 1 and start >= 0
         self.index = start
         self.offset = offset
-        self.current_uri = uri
+        if uri:
+            self.current_uri = uri
+        else:
+            self.current_uri = uri_split.replace('%v', str(start))
         self.uri_split = uri_split
         super().__init__(webdriver=webdriver, interval=interval)
         self.pre_load(self.webdriver)
