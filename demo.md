@@ -2,7 +2,7 @@
 description: Some cases help you better understand it
 ---
 
-# 👾 demo
+# Demo
 
 ### StaticPager
 
@@ -339,4 +339,3 @@ if __name__ == '__main__':
     pager.webdriver.quit()
 
 ```
-

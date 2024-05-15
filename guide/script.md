@@ -5,7 +5,7 @@ description: >-
   that you can adjust them faster.
 ---
 
-# 👾 Script
+# Script
 
 ### Script Definition
 

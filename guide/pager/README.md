@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# 👾 pager
+# Pager
 
 ### What is pager?
 

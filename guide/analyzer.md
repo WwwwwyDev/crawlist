@@ -2,7 +2,7 @@
 description: Achieve linkage between pagers and selectors
 ---
 
-# 👾 analyzer
+# Analyzer
 
 ```python
 class Analyzer(BaseAnalyzer):

@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# 👾 home
+# Overview
 
 [<img src="https://s2.loli.net/2024/04/12/C9tV8wvzUPM7lgb.png" alt="crawlist" data-size="original">](https://github.com/WwwwwyDev/crawlist)
 
@@ -27,8 +27,7 @@ A universal solution for web crawling lists
 
 ### introduction
 
-You can use Crawlist to crawl websites containing lists, and with some simple configurations, you can obtain all the list data.\
-Of course, in the face of some special websites that cannot be crawled, you can also customize the configuration of that website.
+You can use Crawlist to crawl websites containing lists, and with some simple configurations, you can obtain all the list data.
 
 ### installing
 

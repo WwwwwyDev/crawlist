@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# 👾 Implement your own pager
+# Implement your own pager
 
 ```python
 import crawlist as cl

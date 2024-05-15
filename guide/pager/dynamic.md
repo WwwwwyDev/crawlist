@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# 👾 dynamic
+# Dynamic
 
 There are six types of implementation for dynamic paginators
 

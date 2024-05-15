@@ -13,7 +13,7 @@ layout:
     visible: true
 ---
 
-# 👾 static
+# Static
 
 There are two types of implementation for static paginators
 
