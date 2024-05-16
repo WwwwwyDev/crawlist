@@ -58,13 +58,6 @@ class DefaultRemoteDriver(Driver):
         option.set_capability('cloud:options', DesiredCapabilities.CHROME)
         option.add_experimental_option('excludeSwitches', ['enable-automation'])
         webdriver = wd.Remote(command_executor=self.webdriver_url, options=option)
-        webdriver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-            "source": """
-                Object.defineProperty(navigator, 'webdriver', {
-                  get: () => false
-                })
-              """
-        })
         webdriver.implicitly_wait(10)
         return webdriver
 

@@ -296,6 +296,22 @@ class TestCase(unittest.TestCase):
         print(len(res))
         pager.webdriver.quit()
 
+    def test_15(self):
+        webdriver = cl.DefaultDriver(is_debug=True)
+        # webdriver = cl.DefaultRemoteDriver("http://192.168.1.181:4444")
+        pager = cl.DynamicNextButtonPager(button_selector=[cl.XpathWebElementSelector("//*[@id=\"pagelist_4812\"]/a[3]"),
+                                                           cl.XpathWebElementSelector("//*[@id=\"pagelist_4812\"]/a[1]")],
+                                          uri="https://kw.beijing.gov.cn/col/col736/",
+                                          webdriver=webdriver)
+        selector = cl.XpathSelector(pattern='//*[@id="newslist_4812"]/li')
+        analyzer = cl.AnalyzerPrettify(pager, selector)
+        res = []
+        for tr in analyzer(TestCase.limit):
+            print(tr)
+            res.append(tr)
+        print(len(res))
+        pager.webdriver.quit()
+
 
 if __name__ == '__main__':
     unittest.main()
