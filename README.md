@@ -88,10 +88,10 @@ if __name__ == '__main__':
 
 ```
 
-## Documenting
+## documenting
 If you are interested and would like to see more detailed documentation, please click on the link below.
 
 [中文](https://wwydev.gitbook.io/crawlist-zh/ "中文文档")|[English](https://wwydev.gitbook.io/crawlist "English Document")
 
-## Contributing
+## contributing
 Please submit pull requests to the develop branch

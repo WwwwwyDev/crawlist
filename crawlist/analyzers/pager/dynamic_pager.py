@@ -1,4 +1,5 @@
 import parsel
+from selenium.common import WebDriverException
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -89,7 +90,11 @@ class DynamicRedirectPager(DynamicPager):
 
     @property
     def html(self) -> str:
-        self.webdriver.get(self.current_uri)
+        try:
+            self.webdriver.get(self.current_uri)
+        except WebDriverException as e:
+            if "missing or invalid columnNumber" not in e.msg:
+                raise e
         return self.webdriver.page_source
 
 
