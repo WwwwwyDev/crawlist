@@ -1,8 +1,8 @@
 ---
-description: Some cases help you better understand it
+description: 一些例子以便于你更好地理解crawlist
 ---
 
-# Demo
+# 示例
 
 ### StaticPager
 
