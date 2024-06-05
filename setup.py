@@ -15,7 +15,7 @@ from setuptools import find_packages, setup, Command
 NAME = 'crawlist'
 DESCRIPTION = 'A universal solution for web crawling lists'
 URL = 'https://github.com/WwwwwyDev/crawlist'
-EMAIL = 'wwy20001014@foxmail.com'
+EMAIL = 'wwwwwydev@gmail.com'
 AUTHOR = 'WwyDev'
 REQUIRES_PYTHON = '>=3.10.0'
 VERSION = '0.1.0'
